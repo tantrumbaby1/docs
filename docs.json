@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "OneClick",
   "colors": {
-    "primary": "#9333EA",
-    "light": "#A855F7",
-    "dark": "#7C3AED"
+    "primary": "#0582CA",
+    "light": "#00A6FB",
+    "dark": "#006494"
   },
   "favicon": "/favicon.svg",
   "navigation": {
