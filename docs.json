@@ -8,97 +8,57 @@
     "dark": "#006494"
   },
   "favicon": "/favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Documentation",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "pages": [
-              "index",
-              "quickstart",
-              "dashboard-overview"
-            ]
-          },
-          {
-            "group": "Core Features",
-            "pages": [
-              "ct-tracker",
-              "my-feed",
-              "launch-zone",
-              "oneclick-launching"
-            ]
-          },
-          {
-            "group": "Settings",
-            "pages": [
-              "settings/wallets",
-              "settings/launching",
-              "settings/transacting",
-              "settings/advanced",
-              "settings/ui-layout"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API Reference",
-        "groups": [
-          {
-            "group": "Authentication",
-            "pages": [
-              "api-reference/auth"
-            ]
-          },
-          {
-            "group": "Endpoints",
-            "pages": [
-              "api-reference/tokens",
-              "api-reference/twitter",
-              "api-reference/settings"
-            ]
-          }
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Launch App",
-          "href": "https://app.oneclick.com",
-          "icon": "rocket"
-        },
-        {
-          "anchor": "Discord",
-          "href": "https://discord.gg/oneclick",
-          "icon": "discord"
-        },
-        {
-          "anchor": "GitHub",
-          "href": "https://github.com/oneclick/oneclick",
-          "icon": "github"
-        }
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "index",
+        "quickstart",
+        "dashboard-overview"
+      ]
+    },
+    {
+      "group": "Core Features",
+      "pages": [
+        "ct-tracker",
+        "my-feed",
+        "launch-zone",
+        "oneclick-launching"
+      ]
+    },
+    {
+      "group": "Settings",
+      "pages": [
+        "settings/wallets",
+        "settings/launching",
+        "settings/transacting",
+        "settings/advanced",
+        "settings/ui-layout"
       ]
     }
-  },
+  ],
+  "anchors": [
+    {
+      "name": "Launch App",
+      "url": "https://app.oneclick.com",
+      "icon": "rocket"
+    },
+    {
+      "name": "Discord",
+      "url": "https://discord.gg/oneclick", 
+      "icon": "discord"
+    }
+  ],
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:support@oneclick.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Launch App",
-      "href": "https://app.oneclick.com"
+  "navbar": [
+    {
+      "name": "Launch App",
+      "url": "https://app.oneclick.com"
     }
-  },
+  ],
   "contextual": {
     "options": [
       "copy",
@@ -108,11 +68,8 @@
       "cursor"
     ]
   },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/oneclick",
-      "github": "https://github.com/oneclick/oneclick",
-      "discord": "https://discord.gg/oneclick"
-    }
+  "footerSocials": {
+    "x": "https://x.com/oneclick",
+    "discord": "https://discord.gg/oneclick"
   }
 }
