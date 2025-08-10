@@ -17,7 +17,6 @@
             "group": "Getting Started",
             "pages": [
               "index",
-              "quickstart",
               "dashboard-overview"
             ]
           },
@@ -47,7 +46,7 @@
       "anchors": [
         {
           "anchor": "Launch App",
-          "href": "https://app.oneclick.com",
+          "href": "https://oneclick.bond",
           "icon": "rocket"
         },
         {
@@ -67,7 +66,7 @@
     "primary": {
       "type": "button",
       "label": "Launch App",
-      "href": "https://app.oneclick.com"
+      "href": "https://oneclick.bond"
     }
   },
   "contextual": {
