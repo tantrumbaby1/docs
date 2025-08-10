@@ -1,0 +1,688 @@
+---
+title: "Token API"
+description: "Launch tokens, manage positions, and track performance through OneClick's Token API"
+---
+
+# Token API
+
+The Token API provides endpoints for launching tokens, managing positions, tracking performance, and automating token operations through OneClick's platform.
+
+<Card icon="coins" title="Token Operations">
+**Full token lifecycle management** through RESTful API endpoints:
+- Launch new tokens on Solana
+- Track launch status and progress
+- Manage token positions and sales
+- Monitor performance and analytics
+</Card>
+
+## Base URL
+
+```
+https://api.oneclick.com/api
+```
+
+All endpoints require authentication via Bearer token in the Authorization header.
+
+---
+
+## Token Launch Endpoints
+
+### Launch Token
+
+<Card icon="rocket" title="POST /tokens/launch">
+**Deploy a new token to Solana blockchain**
+</Card>
+
+**Request Body:**
+```json
+{
+  "name": "My Token",
+  "symbol": "MTKN",
+  "description": "A sample token description",
+  "image": "https://example.com/token-image.png",
+  "solAmount": 0.1,
+  "platform": "PUMP_FUN",
+  "walletId": "uuid-of-wallet",
+  "twitter": "https://twitter.com/user/status/123",
+  "metadata": {
+    "telegram": "https://t.me/mytoken",
+    "website": "https://mytoken.com"
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "launchJobId": "job_uuid",
+    "tokenId": "token_uuid",
+    "estimatedCompleteTime": "2024-01-15T10:30:00Z",
+    "queuePosition": 3,
+    "status": "PENDING"
+  }
+}
+```
+
+**Parameters:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | Yes | Token name (max 32 characters) |
+| `symbol` | string | Yes | Token symbol (max 10 characters) |
+| `description` | string | No | Token description (max 1000 characters) |
+| `image` | string | No | URL to token image |
+| `solAmount` | number | Yes | SOL amount to spend (0.001-100) |
+| `platform` | string | Yes | Launch platform: "PUMP_FUN", "RAYDIUM" |
+| `walletId` | string | No | Specific wallet ID (uses primary if not provided) |
+| `twitter` | string | No | Originating tweet URL |
+| `metadata` | object | No | Additional token metadata |
+
+### OneClick Launch
+
+<Card icon="mouse-pointer" title="POST /oneclick/launch">
+**Instant token deployment with minimal parameters**
+</Card>
+
+**Request Body:**
+```json
+{
+  "text": "MEME TOKEN TO THE MOON",
+  "twitter": "https://twitter.com/user/status/123",
+  "imageUrl": "https://example.com/image.jpg",
+  "solAmount": 0.05,
+  "platform": "PUMP_FUN"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "launchJobId": "job_uuid",
+    "tokenName": "MEME TOKEN TO THE MOON",
+    "tokenSymbol": "MEME",
+    "status": "PROCESSING"
+  }
+}
+```
+
+---
+
+## Launch Status & Monitoring
+
+### Get Launch Status
+
+<Card icon="clock" title="GET /tokens/launch/{launchJobId}/status">
+**Check the status of a token launch**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": "job_uuid",
+    "status": "CREATING_TOKEN",
+    "progress": 60,
+    "estimatedCompleteTime": "2024-01-15T10:32:00Z",
+    "logs": [
+      {
+        "timestamp": "2024-01-15T10:30:15Z",
+        "level": "INFO",
+        "message": "Metadata uploaded to IPFS"
+      },
+      {
+        "timestamp": "2024-01-15T10:30:45Z", 
+        "level": "INFO",
+        "message": "Token contract deploying..."
+      }
+    ],
+    "transactionHash": "tx_hash_when_available"
+  }
+}
+```
+
+**Status Values:**
+- `PENDING` - Queued for processing
+- `PROCESSING` - Launch in progress
+- `UPLOADING_METADATA` - Uploading to IPFS
+- `CREATING_TOKEN` - Deploying smart contract
+- `BUYING_TOKENS` - Executing initial purchase
+- `COMPLETED` - Successfully launched
+- `FAILED` - Launch failed
+- `CANCELLED` - User cancelled
+
+### Get Launch Queue
+
+<Card icon="list" title="GET /tokens/launch-queue">
+**View current launch queue status**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "queueLength": 15,
+    "estimatedWaitTime": "5 minutes",
+    "yourPosition": 3,
+    "networkStatus": {
+      "tps": 2847,
+      "slotHeight": 185432156,
+      "congestionLevel": "MEDIUM"
+    },
+    "jobs": [
+      {
+        "id": "job_uuid",
+        "tokenName": "My Token",
+        "status": "PENDING",
+        "queuePosition": 3,
+        "estimatedStartTime": "2024-01-15T10:35:00Z"
+      }
+    ]
+  }
+}
+```
+
+---
+
+## Position Management
+
+### Get User Positions
+
+<Card icon="portfolio" title="GET /tokens/positions">
+**Retrieve all user token positions**
+</Card>
+
+**Query Parameters:**
+- `status` - Filter by status: `active`, `sold`, `all`
+- `platform` - Filter by platform: `PUMP_FUN`, `RAYDIUM`
+- `limit` - Results per page (default: 50)
+- `offset` - Pagination offset
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "positions": [
+      {
+        "id": "position_uuid",
+        "tokenId": "token_uuid",
+        "contractAddress": "token_contract_address",
+        "name": "My Token",
+        "symbol": "MTKN",
+        "imageUrl": "https://example.com/token.png",
+        "balance": {
+          "tokens": "1000000",
+          "sol": 0.15,
+          "usd": 18.50
+        },
+        "performance": {
+          "initialInvestment": 0.1,
+          "currentValue": 0.15,
+          "pnl": 0.05,
+          "pnlPercentage": 50.0,
+          "allTimeHigh": 0.25,
+          "allTimeLow": 0.08
+        },
+        "launchDate": "2024-01-15T10:30:00Z",
+        "platform": "PUMP_FUN",
+        "status": "ACTIVE"
+      }
+    ],
+    "pagination": {
+      "total": 125,
+      "limit": 50,
+      "offset": 0,
+      "hasMore": true
+    },
+    "summary": {
+      "totalPositions": 125,
+      "activePositions": 67,
+      "totalValue": 12.5,
+      "totalPnl": -2.3,
+      "totalPnlPercentage": -15.5
+    }
+  }
+}
+```
+
+### Get Single Position
+
+<Card icon="eye" title="GET /tokens/positions/{positionId}">
+**Get detailed information about a specific position**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "position": {
+      "id": "position_uuid",
+      "tokenDetails": {
+        "contractAddress": "token_address",
+        "name": "My Token",
+        "symbol": "MTKN",
+        "description": "Token description",
+        "imageUrl": "https://example.com/token.png",
+        "totalSupply": "1000000000",
+        "marketCap": 125000
+      },
+      "holdings": {
+        "tokenBalance": "1000000",
+        "solValue": 0.15,
+        "usdValue": 18.50,
+        "percentageOfSupply": 0.1
+      },
+      "transactions": [
+        {
+          "type": "BUY",
+          "amount": "1000000",
+          "solPrice": 0.1,
+          "timestamp": "2024-01-15T10:30:00Z",
+          "transactionHash": "tx_hash"
+        }
+      ],
+      "performance": {
+        "entryPrice": 0.0000001,
+        "currentPrice": 0.00000015,
+        "change24h": 12.5,
+        "volume24h": 2.5,
+        "trades24h": 145
+      }
+    }
+  }
+}
+```
+
+---
+
+## Selling Operations
+
+### Sell Tokens
+
+<Card icon="chart-line" title="POST /tokens/positions/{positionId}/sell">
+**Sell tokens from a position**
+</Card>
+
+**Request Body:**
+```json
+{
+  "sellType": "PERCENTAGE",
+  "amount": 50,
+  "slippageTolerance": 5.0,
+  "priorityFee": 5000
+}
+```
+
+**Parameters:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `sellType` | string | Yes | "PERCENTAGE", "TOKENS", "SOL", "USD" |
+| `amount` | number | Yes | Amount based on sellType |
+| `slippageTolerance` | number | No | Max slippage % (default: 5.0) |
+| `priorityFee` | number | No | Priority fee in micro-lamports |
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "sellJobId": "sell_job_uuid",
+    "estimatedReceive": {
+      "sol": 0.075,
+      "usd": 9.25
+    },
+    "estimatedSlippage": 2.3,
+    "status": "PROCESSING"
+  }
+}
+```
+
+### Batch Sell
+
+<Card icon="layer-group" title="POST /tokens/sell/batch">
+**Sell multiple positions simultaneously**
+</Card>
+
+**Request Body:**
+```json
+{
+  "sells": [
+    {
+      "positionId": "position1_uuid",
+      "sellType": "PERCENTAGE",
+      "amount": 25
+    },
+    {
+      "positionId": "position2_uuid", 
+      "sellType": "PERCENTAGE",
+      "amount": 50
+    }
+  ],
+  "slippageTolerance": 5.0
+}
+```
+
+---
+
+## Analytics & Performance
+
+### Get Portfolio Analytics
+
+<Card icon="chart-bar" title="GET /tokens/analytics/portfolio">
+**Comprehensive portfolio performance metrics**
+</Card>
+
+**Query Parameters:**
+- `timeframe` - `24h`, `7d`, `30d`, `90d`, `1y`, `all`
+- `groupBy` - `day`, `week`, `month`
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "timeframe": "30d",
+    "summary": {
+      "totalInvested": 10.5,
+      "currentValue": 12.8,
+      "totalPnl": 2.3,
+      "totalPnlPercentage": 21.9,
+      "successRate": 67.5,
+      "averageHoldTime": "4.2 days",
+      "bestTrade": {
+        "tokenName": "MOON",
+        "pnl": 0.85,
+        "pnlPercentage": 850
+      },
+      "worstTrade": {
+        "tokenName": "RUG", 
+        "pnl": -0.1,
+        "pnlPercentage": -100
+      }
+    },
+    "performance": [
+      {
+        "date": "2024-01-01",
+        "portfolioValue": 10.5,
+        "dailyPnl": 0.0,
+        "trades": 3
+      }
+    ],
+    "breakdown": {
+      "byPlatform": {
+        "PUMP_FUN": {
+          "positions": 45,
+          "totalValue": 8.2,
+          "pnl": 1.5
+        }
+      },
+      "byStatus": {
+        "active": 23,
+        "sold": 67,
+        "failed": 5
+      }
+    }
+  }
+}
+```
+
+### Get Token Performance
+
+<Card icon="chart-line" title="GET /tokens/{tokenId}/performance">
+**Detailed performance data for a specific token**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "tokenId": "token_uuid",
+    "priceHistory": [
+      {
+        "timestamp": "2024-01-15T10:30:00Z",
+        "price": 0.0000001,
+        "volume": 0.5,
+        "marketCap": 100
+      }
+    ],
+    "metrics": {
+      "allTimeHigh": 0.00000025,
+      "allTimeLow": 0.00000008,
+      "volatility": 156.7,
+      "averageVolume": 1.2,
+      "holdersCount": 234,
+      "topHolders": [
+        {
+          "address": "holder_address",
+          "percentage": 15.5,
+          "isKnown": false
+        }
+      ]
+    }
+  }
+}
+```
+
+---
+
+## Automation Endpoints
+
+### Set Auto-Sell Rules
+
+<Card icon="robot" title="POST /tokens/positions/{positionId}/auto-sell">
+**Configure automated selling rules**
+</Card>
+
+**Request Body:**
+```json
+{
+  "rules": [
+    {
+      "type": "TAKE_PROFIT",
+      "trigger": {
+        "priceMultiple": 2.0
+      },
+      "action": {
+        "sellPercentage": 50
+      }
+    },
+    {
+      "type": "STOP_LOSS", 
+      "trigger": {
+        "priceMultiple": 0.5
+      },
+      "action": {
+        "sellPercentage": 100
+      }
+    }
+  ]
+}
+```
+
+**Rule Types:**
+- `TAKE_PROFIT` - Sell when price reaches target
+- `STOP_LOSS` - Sell when price drops below threshold
+- `TIME_BASED` - Sell after holding for specified duration
+- `VOLUME_BASED` - Sell when volume conditions are met
+
+---
+
+## Error Handling
+
+### Common Error Responses
+
+<Tabs>
+  <TabItem value="400" label="400 Bad Request">
+    **Invalid request parameters**:
+    
+    ```json
+    {
+      "error": "bad_request",
+      "message": "Invalid SOL amount: must be between 0.001 and 100",
+      "code": 400,
+      "details": {
+        "field": "solAmount",
+        "provided": 150,
+        "min": 0.001,
+        "max": 100
+      }
+    }
+    ```
+  </TabItem>
+  
+  <TabItem value="404" label="404 Not Found">
+    **Resource not found**:
+    
+    ```json
+    {
+      "error": "not_found",
+      "message": "Token position not found",
+      "code": 404,
+      "resource": "position",
+      "id": "invalid_uuid"
+    }
+    ```
+  </TabItem>
+  
+  <TabItem value="429" label="429 Rate Limited">
+    **Rate limit exceeded**:
+    
+    ```json
+    {
+      "error": "rate_limited",
+      "message": "Token launch rate limit exceeded",
+      "code": 429,
+      "limit": 10,
+      "window": "hour",
+      "retryAfter": 3400
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+---
+
+## SDK Examples
+
+### JavaScript/TypeScript
+
+```typescript
+import { OneClickAPI } from '@oneclick/sdk';
+
+const api = new OneClickAPI({
+  apiKey: 'your-api-key',
+  baseURL: 'https://api.oneclick.com'
+});
+
+// Launch a token
+const launch = await api.tokens.launch({
+  name: 'My Token',
+  symbol: 'MTKN',
+  solAmount: 0.1,
+  platform: 'PUMP_FUN'
+});
+
+// Monitor launch status
+const status = await api.tokens.getLaunchStatus(launch.launchJobId);
+
+// Get positions
+const positions = await api.tokens.getPositions({
+  status: 'active'
+});
+
+// Sell tokens
+const sell = await api.tokens.sell(positionId, {
+  sellType: 'PERCENTAGE',
+  amount: 50
+});
+```
+
+### Python
+
+```python
+from oneclick_sdk import OneClickAPI
+
+api = OneClickAPI(
+    api_key='your-api-key',
+    base_url='https://api.oneclick.com'
+)
+
+# Launch token
+launch = api.tokens.launch(
+    name='My Token',
+    symbol='MTKN',
+    sol_amount=0.1,
+    platform='PUMP_FUN'
+)
+
+# Get positions
+positions = api.tokens.get_positions(status='active')
+
+# Sell tokens
+sell_result = api.tokens.sell(
+    position_id=position_id,
+    sell_type='PERCENTAGE',
+    amount=50
+)
+```
+
+---
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card
+    title="Error Handling"
+    icon="exclamation-triangle"
+  >
+    **Robust error handling**:
+    - Always check response status codes
+    - Implement retry logic with exponential backoff
+    - Handle rate limits gracefully
+    - Log errors for debugging
+  </Card>
+  <Card
+    title="Performance"
+    icon="zap"
+  >
+    **Optimize API usage**:
+    - Use pagination for large datasets
+    - Cache frequently accessed data
+    - Batch operations when possible
+    - Monitor API usage metrics
+  </Card>
+</CardGroup>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Twitter API"
+    icon="twitter"
+    href="/api-reference/twitter"
+  >
+    Integrate with Twitter tracking and feed management
+  </Card>
+  <Card
+    title="Settings API"
+    icon="settings"
+    href="/api-reference/settings"
+  >
+    Manage user preferences and configuration
+  </Card>
+</CardGroup>
+
+<Tip>
+**Development Tip**: Use the sandbox environment for testing with fake SOL and test tokens. This prevents accidental losses during development and allows safe experimentation with all API features.
+</Tip>

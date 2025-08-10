@@ -1,0 +1,450 @@
+---
+title: "Launch Settings"
+description: "Configure platforms, presets, and automation for optimal token launching"
+---
+
+# Launch Settings
+
+Configure your token launching preferences to optimize speed, profitability, and automation. These settings control how OneClick deploys tokens and manages your launch strategy.
+
+<Card icon="rocket" title="Launch Configuration">
+Access launch settings through **Settings > Launching** to configure default platforms, SOL amounts, presets, and OneClick automation preferences.
+</Card>
+
+## Platform Configuration
+
+### Default Platform
+
+<CardGroup cols={2}>
+  <Card
+    title="Pump.fun"
+    icon="rocket"
+  >
+    **Most popular choice**:
+    - Lowest fees and fastest deployment
+    - Built-in community features
+    - Automatic liquidity provision
+    - Mobile-optimized interface
+    - Best for meme tokens
+  </Card>
+  <Card
+    title="Custom Platforms"
+    icon="code"
+  >
+    **Advanced options**:
+    - Raydium direct deployment
+    - Jupiter integration
+    - Custom smart contracts
+    - Advanced liquidity configurations
+    - Enterprise features
+  </Card>
+</CardGroup>
+
+### Platform Settings
+
+<AccordionGroup>
+  <Accordion icon="settings" title="Pump.fun Configuration">
+    **Optimize for Pump.fun launches**:
+    - **Auto-liquidity**: Automatic LP provision
+    - **Community features**: Enable social features
+    - **Fee optimization**: Minimize deployment costs
+    - **Speed priority**: Fastest possible deployment
+  </Accordion>
+  
+  <Accordion icon="chart-line" title="Raydium Integration">
+    **Advanced Raydium options**:
+    - **Pool creation**: Custom liquidity pools
+    - **Fee tiers**: Choose optimal fee structures
+    - **Launch timing**: Scheduled deployments
+    - **Advanced tokenomics**: Custom supply mechanics
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## OneClick Configuration
+
+### Enable OneClick
+
+<Steps>
+  <Step title="Activation">
+    **Toggle OneClick enabled** to activate instant launching from any text selection.
+  </Step>
+  <Step title="SOL Amount">
+    **Set default SOL amount** for OneClick purchases:
+    - Minimum: 0.001 SOL (for testing)
+    - Recommended: 0.01-0.1 SOL (for active trading)
+    - Maximum: 10 SOL (for high-conviction plays)
+  </Step>
+  <Step title="Confirmation">
+    **Choose confirmation level**:
+    - No confirmation (instant)
+    - Quick confirmation (3-second countdown)
+    - Full confirmation (review before launch)
+  </Step>
+</Steps>
+
+### OneClick Safety
+
+<Warning>
+**Speed vs Safety**: OneClick prioritizes speed over safety checks. Only enable with funds you can afford to lose quickly.
+</Warning>
+
+<CardGroup cols={2}>
+  <Card
+    title="Risk Controls"
+    icon="shield"
+  >
+    **Automatic safety measures**:
+    - Daily spending limits
+    - Cooldown periods between launches
+    - Balance threshold requirements
+    - Network congestion adjustments
+  </Card>
+  <Card
+    title="Emergency Stops"
+    icon="stop"
+  >
+    **Circuit breakers**:
+    - Auto-disable after failed launches
+    - Insufficient balance protection
+    - Network error protection
+    - Manual emergency disable
+  </Card>
+</CardGroup>
+
+---
+
+## Preset Configuration
+
+### Liquidity Presets
+
+<Card icon="droplets" title="Quick SOL Amounts">
+**Configure your most-used SOL amounts** for one-click selection during launches:
+- **Default presets**: 0.1, 0.5, 1, 5 SOL
+- **Custom amounts**: Add your preferred values
+- **Dynamic presets**: Adjust based on market conditions
+- **Percentage-based**: Use wallet percentage instead of fixed amounts
+</Card>
+
+### Sell Presets
+
+<Card icon="chart-line" title="Quick Exit Percentages">
+**Set up instant sell percentages** for rapid profit-taking:
+- **Default presets**: 25%, 50%, 75%, 100%
+- **Custom percentages**: Add your preferred exit points
+- **Profit-taking ladder**: Progressive selling strategy
+- **Risk-based presets**: Different percentages for different risk levels
+</Card>
+
+### Preset Strategies
+
+<AccordionGroup>
+  <Accordion icon="target" title="Conservative Strategy">
+    **Risk-averse approach**:
+    - **Liquidity**: 0.01, 0.05, 0.1, 0.25 SOL
+    - **Sell presets**: 10%, 25%, 50%, 100%
+    - **Focus**: Capital preservation with modest gains
+    - **Best for**: New traders and bear markets
+  </Accordion>
+  
+  <Accordion icon="zap" title="Aggressive Strategy">
+    **High-risk, high-reward**:
+    - **Liquidity**: 0.1, 0.5, 1, 3 SOL
+    - **Sell presets**: 50%, 75%, 90%, 100%
+    - **Focus**: Maximum profit potential
+    - **Best for**: Experienced traders in bull markets
+  </Accordion>
+  
+  <Accordion icon="scale-balanced" title="Balanced Strategy">
+    **Moderate risk approach**:
+    - **Liquidity**: 0.05, 0.1, 0.5, 1 SOL
+    - **Sell presets**: 25%, 50%, 75%, 100%
+    - **Focus**: Steady growth with controlled risk
+    - **Best for**: Most trading conditions
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Advanced Launch Settings
+
+### Priority Fees
+
+<Card icon="gauge-high" title="Transaction Speed Control">
+**Configure priority fees** to control launch speed vs cost:
+- **Low (1,000 micro-lamports)**: Cheap but slower
+- **Medium (5,000)**: Balanced speed and cost
+- **High (10,000+)**: Fast but expensive
+- **Dynamic**: Auto-adjust based on network conditions
+</Card>
+
+### Slippage Tolerance
+
+<AccordionGroup>
+  <Accordion icon="percentage" title="Slippage Settings">
+    **Control price impact tolerance**:
+    - **Low (0.5%)**: Minimal slippage, may fail in volatile markets
+    - **Medium (2-5%)**: Balanced for most conditions
+    - **High (10%+)**: Accepts high slippage for execution certainty
+    - **Adaptive**: Adjust based on token liquidity
+  </Accordion>
+  
+  <Accordion icon="shield" title="MEV Protection">
+    **Protect against front-running**:
+    - **Basic protection**: Standard MEV mitigation
+    - **Advanced protection**: Premium MEV shield
+    - **Priority lanes**: Exclusive transaction routes
+    - **Flashbots integration**: Advanced MEV protection
+  </Accordion>
+</AccordionGroup>
+
+### Launch Timing
+
+<CardGroup cols={2}>
+  <Card
+    title="Instant Launch"
+    icon="zap"
+  >
+    **Immediate deployment**:
+    - No delays or scheduling
+    - Maximum speed priority
+    - Real-time market entry
+    - Best for trending opportunities
+  </Card>
+  <Card
+    title="Scheduled Launch"
+    icon="clock"
+  >
+    **Timed deployment**:
+    - Schedule launches for optimal times
+    - Coordinate with market events
+    - Batch multiple launches
+    - Time zone optimization
+  </Card>
+</CardGroup>
+
+---
+
+## Automation Settings
+
+### Auto-Launch Rules
+
+<Steps>
+  <Step title="Trigger Conditions">
+    **Set conditions for automatic launches**:
+    - Specific account posts
+    - Keyword combinations
+    - Market sentiment thresholds
+    - Volume/engagement metrics
+  </Step>
+  <Step title="Launch Parameters">
+    **Configure auto-launch settings**:
+    - SOL amount per auto-launch
+    - Maximum launches per hour/day
+    - Cooldown periods
+    - Risk-based position sizing
+  </Step>
+  <Step title="Safety Limits">
+    **Implement safeguards**:
+    - Daily spending caps
+    - Consecutive failure limits
+    - Market condition checks
+    - Manual override capabilities
+  </Step>
+</Steps>
+
+### Smart Automation
+
+<AccordionGroup>
+  <Accordion icon="brain" title="AI-Powered Launches">
+    **Intelligent launch decisions**:
+    - Sentiment analysis triggers
+    - Market timing optimization
+    - Risk assessment integration
+    - Performance-based adjustments
+  </Accordion>
+  
+  <Accordion icon="chart-mixed" title="Market Condition Awareness">
+    **Context-sensitive automation**:
+    - Bull/bear market adjustments
+    - Network congestion adaptation
+    - Liquidity-based sizing
+    - Volatility-adjusted timing
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Performance Optimization
+
+### Network Optimization
+
+<CardGroup cols={2}>
+  <Card
+    title="RPC Configuration"
+    icon="server"
+  >
+    **Optimize network performance**:
+    - Premium RPC endpoints
+    - Load balancing
+    - Automatic failover
+    - Latency optimization
+  </Card>
+  <Card
+    title="Transaction Optimization"
+    icon="zap"
+  >
+    **Faster transaction processing**:
+    - Optimized transaction structure
+    - Batch operation support
+    - Priority fee automation
+    - Network congestion adaptation
+  </Card>
+</CardGroup>
+
+### Launch Analytics
+
+Track your launch performance:
+
+- **Success Rate**: Percentage of successful deployments
+- **Average Launch Time**: Speed from trigger to completion
+- **Cost Analysis**: Fees paid vs launch value
+- **Profitability**: ROI across all launches
+- **Optimal Timing**: Best performing launch times
+
+---
+
+## Risk Management
+
+### Position Sizing
+
+<AccordionGroup>
+  <Accordion icon="calculator" title="Dynamic Sizing">
+    **Automatically adjust launch amounts**:
+    - Portfolio percentage-based sizing
+    - Volatility-adjusted amounts
+    - Market condition scaling
+    - Performance-based adaptation
+  </Accordion>
+  
+  <Accordion icon="shield-check" title="Risk Controls">
+    **Automatic risk management**:
+    - Maximum daily/weekly spending
+    - Consecutive loss limits
+    - Balance protection thresholds
+    - Emergency stop triggers
+  </Accordion>
+</AccordionGroup>
+
+### Diversification
+
+<CardGroup cols={2}>
+  <Card
+    title="Platform Diversification"
+    icon="shuffle"
+  >
+    **Spread across platforms**:
+    - Multiple platform rotation
+    - Risk distribution
+    - Performance comparison
+    - Platform-specific optimization
+  </Card>
+  <Card
+    title="Timing Diversification"
+    icon="clock"
+  >
+    **Temporal risk distribution**:
+    - Launch timing variation
+    - Market condition diversification
+    - Time zone optimization
+    - Seasonal adjustments
+  </Card>
+</CardGroup>
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+<AccordionGroup>
+  <Accordion icon="x-circle" title="Failed Launches">
+    **If launches consistently fail**:
+    - Check wallet SOL balance
+    - Verify network status
+    - Reduce slippage tolerance
+    - Increase priority fees
+    - Contact support with error logs
+  </Accordion>
+  
+  <Accordion icon="clock" title="Slow Launches">
+    **If launches take too long**:
+    - Increase priority fees
+    - Use premium RPC endpoints
+    - Avoid peak network times
+    - Reduce slippage tolerance
+    - Check network congestion
+  </Accordion>
+  
+  <Accordion icon="coins" title="Unexpected Costs">
+    **If fees are higher than expected**:
+    - Review priority fee settings
+    - Check network congestion
+    - Verify slippage settings
+    - Monitor platform fees
+    - Analyze cost breakdown
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card
+    title="Start Conservative"
+    icon="shield"
+  >
+    **Begin with safe settings**:
+    - Small SOL amounts (0.01-0.1)
+    - Conservative slippage (2-5%)
+    - Moderate priority fees
+    - Manual confirmation enabled
+  </Card>
+  <Card
+    title="Optimize Gradually"
+    icon="chart-line"
+  >
+    **Improve over time**:
+    - Track performance metrics
+    - Adjust based on results
+    - Test different strategies
+    - Stay adaptable to market changes
+  </Card>
+</CardGroup>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Configure Wallet Settings"
+    icon="wallet"
+    href="/settings/wallets"
+  >
+    Set up your wallets for secure and efficient trading
+  </Card>
+  <Card
+    title="Explore Advanced Settings"
+    icon="cog"
+    href="/settings/advanced"
+  >
+    Configure automation and advanced trading features
+  </Card>
+</CardGroup>
+
+<Tip>
+**Pro Tip**: Start with OneClick disabled and manual launches until you're comfortable with the platform. Once you understand the market patterns and timing, gradually enable OneClick with very small amounts. Your launch settings should evolve with your experience and market conditions.
+</Tip>

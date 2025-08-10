@@ -1,0 +1,728 @@
+---
+title: "Twitter API"
+description: "Manage Twitter account tracking, feed filtering, and notification preferences"
+---
+
+# Twitter API
+
+The Twitter API enables programmatic management of account subscriptions, feed filtering, and notification settings within OneClick's CT Tracker system.
+
+<Card icon="twitter" title="Twitter Integration">
+**Comprehensive Twitter management** through RESTful endpoints:
+- Subscribe to and track Twitter accounts
+- Configure custom filters and alerts
+- Manage notification preferences
+- Access real-time tweet feeds
+</Card>
+
+## Base URL
+
+```
+https://api.oneclick.com/api/twitter
+```
+
+All endpoints require authentication via Bearer token in the Authorization header.
+
+---
+
+## Account Management
+
+### Get Tracked Accounts
+
+<Card icon="users" title="GET /accounts">
+**Retrieve all tracked Twitter accounts for the authenticated user**
+</Card>
+
+**Query Parameters:**
+- `is_tracked` - Filter by tracking status: `true`, `false`
+- `priority` - Filter by priority level: `high`, `medium`, `low`
+- `launch_enabled` - Filter by auto-launch status: `true`, `false`
+- `limit` - Results per page (default: 50, max: 200)
+- `offset` - Pagination offset
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "accounts": [
+      {
+        "id": "account_uuid",
+        "twitter_id": "123456789",
+        "username": "elonmusk",
+        "display_name": "Elon Musk",
+        "profile_image": "https://pbs.twimg.com/profile_images/...",
+        "followers_count": 150000000,
+        "verified": true,
+        "is_tracked": true,
+        "priority": "high",
+        "subscription": {
+          "is_subscribed": true,
+          "enable_launch": true,
+          "max_sol_per_launch": 0.1,
+          "cooldown_minutes": 60,
+          "notifications_enabled": true
+        },
+        "statistics": {
+          "total_tweets": 1250,
+          "launch_triggers": 15,
+          "successful_launches": 12,
+          "avg_performance": 23.5
+        },
+        "created_at": "2024-01-15T10:30:00Z",
+        "last_tweet": "2024-01-20T15:45:00Z"
+      }
+    ],
+    "pagination": {
+      "total": 25,
+      "limit": 50,
+      "offset": 0,
+      "has_more": false
+    },
+    "summary": {
+      "total_accounts": 25,
+      "tracked_accounts": 18,
+      "high_priority": 5,
+      "launch_enabled": 8
+    }
+  }
+}
+```
+
+### Subscribe to Account
+
+<Card icon="user-plus" title="POST /accounts/subscribe">
+**Add a new Twitter account to tracking**
+</Card>
+
+**Request Body:**
+```json
+{
+  "username": "elonmusk",
+  "priority": "high",
+  "enable_launch": true,
+  "max_sol_per_launch": 0.1,
+  "cooldown_minutes": 60,
+  "notifications_enabled": true
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "account": {
+      "id": "account_uuid",
+      "twitter_id": "123456789",
+      "username": "elonmusk",
+      "display_name": "Elon Musk",
+      "is_tracked": true,
+      "subscription": {
+        "is_subscribed": true,
+        "enable_launch": true,
+        "max_sol_per_launch": 0.1,
+        "cooldown_minutes": 60,
+        "notifications_enabled": true
+      }
+    }
+  }
+}
+```
+
+### Update Subscription
+
+<Card icon="edit" title="PUT /accounts/{accountId}/subscription">
+**Update subscription settings for a tracked account**
+</Card>
+
+**Request Body:**
+```json
+{
+  "is_subscribed": true,
+  "enable_launch": false,
+  "max_sol_per_launch": 0.05,
+  "cooldown_minutes": 120,
+  "priority": "medium",
+  "notifications_enabled": false
+}
+```
+
+### Unsubscribe from Account
+
+<Card icon="user-minus" title="DELETE /accounts/{accountId}/subscription">
+**Remove account from tracking**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Successfully unsubscribed from account"
+}
+```
+
+---
+
+## Tweet Feed
+
+### Get Tweet Feed
+
+<Card icon="stream" title="GET /feed">
+**Retrieve tweets from tracked accounts**
+</Card>
+
+**Query Parameters:**
+- `filter` - Filter type: `all`, `launched`, `high_priority`
+- `account_ids` - Comma-separated account IDs to filter
+- `since` - ISO timestamp for tweets since this time
+- `limit` - Number of tweets (default: 50, max: 200)
+- `offset` - Pagination offset
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "tweets": [
+      {
+        "id": "tweet_uuid",
+        "tweet_id": "1234567890",
+        "author": {
+          "id": "account_uuid",
+          "username": "elonmusk",
+          "display_name": "Elon Musk",
+          "profile_image": "https://pbs.twimg.com/profile_images/..."
+        },
+        "content": "Dogecoin to the moon! 🚀",
+        "image_urls": [
+          "https://pbs.twimg.com/media/image1.jpg"
+        ],
+        "metrics": {
+          "likes": 50000,
+          "retweets": 15000,
+          "replies": 2500,
+          "views": 1000000
+        },
+        "analysis": {
+          "should_launch": true,
+          "confidence": 0.85,
+          "sentiment": "POSITIVE",
+          "keywords": ["dogecoin", "moon", "crypto"],
+          "token_mentions": [
+            {
+              "name": "Dogecoin",
+              "symbol": "DOGE",
+              "confidence": 0.95
+            }
+          ]
+        },
+        "tweet_created_at": "2024-01-20T15:45:00Z",
+        "processed_at": "2024-01-20T15:45:30Z"
+      }
+    ],
+    "pagination": {
+      "total": 150,
+      "limit": 50,
+      "offset": 0,
+      "has_more": true
+    }
+  }
+}
+```
+
+### Get Single Tweet
+
+<Card icon="eye" title="GET /tweets/{tweetId}">
+**Get detailed information about a specific tweet**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "tweet": {
+      "id": "tweet_uuid",
+      "tweet_id": "1234567890",
+      "url": "https://twitter.com/elonmusk/status/1234567890",
+      "content": "Full tweet content here...",
+      "author": {
+        "id": "account_uuid",
+        "username": "elonmusk",
+        "display_name": "Elon Musk",
+        "followers_count": 150000000
+      },
+      "thread": {
+        "is_thread": true,
+        "thread_id": "thread_uuid",
+        "position": 1,
+        "total_tweets": 3
+      },
+      "interactions": {
+        "is_retweet": false,
+        "is_reply": false,
+        "is_quote": false,
+        "original_tweet": null,
+        "reply_to": null
+      },
+      "analysis": {
+        "processed": true,
+        "should_launch": true,
+        "confidence": 0.85,
+        "sentiment": "POSITIVE",
+        "topics": ["cryptocurrency", "investment"],
+        "risk_score": 0.3,
+        "ai_summary": "Bullish sentiment on Dogecoin with moon references"
+      },
+      "launched_tokens": [
+        {
+          "token_id": "token_uuid",
+          "name": "Moon Doge",
+          "symbol": "MDOGE",
+          "launched_at": "2024-01-20T15:50:00Z",
+          "performance": {
+            "current_price": 0.00000015,
+            "change_24h": 250.0
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+---
+
+## Filters & Notifications
+
+### Get User Filters
+
+<Card icon="filter" title="GET /filters">
+**Retrieve all user-configured filters**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "filters": [
+      {
+        "id": "filter_uuid",
+        "name": "High-Value Signals",
+        "description": "Catch high-confidence token mentions",
+        "is_active": true,
+        "priority": "high",
+        "conditions": {
+          "keywords": ["gem", "alpha", "launch", "deploying"],
+          "min_followers": 10000,
+          "min_engagement": 100,
+          "sentiment": "POSITIVE",
+          "account_priority": "high"
+        },
+        "actions": {
+          "highlight_color": "#FFD700",
+          "send_notification": true,
+          "auto_launch": false,
+          "webhook_url": "https://example.com/webhook"
+        },
+        "statistics": {
+          "matches_today": 15,
+          "matches_week": 67,
+          "success_rate": 78.5
+        },
+        "created_at": "2024-01-15T10:30:00Z",
+        "updated_at": "2024-01-18T14:20:00Z"
+      }
+    ]
+  }
+}
+```
+
+### Create Filter
+
+<Card icon="plus" title="POST /filters">
+**Create a new tweet filter**
+</Card>
+
+**Request Body:**
+```json
+{
+  "name": "Moonshot Detector",
+  "description": "Detect potential moonshot calls",
+  "conditions": {
+    "keywords": ["moon", "100x", "gem"],
+    "exclude_keywords": ["scam", "rug"],
+    "min_followers": 5000,
+    "min_likes": 50,
+    "sentiment": "POSITIVE",
+    "account_usernames": ["cryptoguru", "moondev"],
+    "time_window": {
+      "start": "09:00",
+      "end": "23:00",
+      "timezone": "UTC"
+    }
+  },
+  "actions": {
+    "highlight_color": "#00FF00",
+    "send_notification": true,
+    "notification_channels": ["browser", "email"],
+    "auto_launch": false,
+    "webhook_url": "https://example.com/webhook"
+  },
+  "priority": "medium"
+}
+```
+
+### Update Filter
+
+<Card icon="edit" title="PUT /filters/{filterId}">
+**Update an existing filter configuration**
+</Card>
+
+### Delete Filter
+
+<Card icon="trash" title="DELETE /filters/{filterId}">
+**Remove a filter**
+</Card>
+
+---
+
+## Profile Updates
+
+### Get Profile Updates
+
+<Card icon="refresh" title="GET /profile-updates">
+**Retrieve Twitter profile changes from tracked accounts**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "updates": [
+      {
+        "id": "update_uuid",
+        "account_id": "account_uuid",
+        "username": "cryptodev",
+        "update_type": "BIO_CHANGE",
+        "changes": {
+          "bio": {
+            "old": "Building the future of DeFi",
+            "new": "Building the future of DeFi | New token launching soon 🚀"
+          }
+        },
+        "detected_signals": {
+          "token_launch_hint": true,
+          "new_project": true,
+          "confidence": 0.75
+        },
+        "updated_at": "2024-01-20T12:30:00Z"
+      }
+    ]
+  }
+}
+```
+
+---
+
+## Analytics
+
+### Get Account Analytics
+
+<Card icon="chart-bar" title="GET /accounts/{accountId}/analytics">
+**Detailed analytics for a tracked account**
+</Card>
+
+**Query Parameters:**
+- `timeframe` - `24h`, `7d`, `30d`, `90d`
+- `metrics` - Specific metrics to include
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "account_id": "account_uuid",
+    "username": "cryptoguru",
+    "timeframe": "30d",
+    "tweet_stats": {
+      "total_tweets": 45,
+      "avg_tweets_per_day": 1.5,
+      "avg_likes": 2500,
+      "avg_retweets": 450,
+      "viral_tweets": 3
+    },
+    "launch_performance": {
+      "triggers": 8,
+      "successful_launches": 6,
+      "success_rate": 75.0,
+      "avg_token_performance": 45.2,
+      "best_performer": {
+        "token_name": "MOON",
+        "performance": 850.0
+      }
+    },
+    "engagement_trends": [
+      {
+        "date": "2024-01-20",
+        "tweets": 2,
+        "avg_likes": 3200,
+        "avg_retweets": 480
+      }
+    ],
+    "topic_distribution": {
+      "defi": 35,
+      "memecoins": 25,
+      "nfts": 20,
+      "trading": 15,
+      "other": 5
+    }
+  }
+}
+```
+
+### Get Feed Analytics
+
+<Card icon="chart-line" title="GET /analytics/feed">
+**Overall feed performance and statistics**
+</Card>
+
+---
+
+## Webhook Configuration
+
+### Set Webhook URL
+
+<Card icon="webhook" title="POST /webhooks">
+**Configure webhook for real-time notifications**
+</Card>
+
+**Request Body:**
+```json
+{
+  "url": "https://your-server.com/webhook",
+  "events": [
+    "new_tweet",
+    "filter_match", 
+    "profile_update",
+    "launch_trigger"
+  ],
+  "secret": "your-webhook-secret"
+}
+```
+
+**Webhook Payload Example:**
+```json
+{
+  "event": "filter_match",
+  "timestamp": "2024-01-20T15:45:00Z",
+  "data": {
+    "filter_id": "filter_uuid",
+    "filter_name": "Moonshot Detector",
+    "tweet": {
+      "id": "tweet_uuid",
+      "content": "New gem launching tomorrow! 🚀",
+      "author": {
+        "username": "cryptoguru",
+        "display_name": "Crypto Guru"
+      }
+    },
+    "match_confidence": 0.92
+  },
+  "signature": "sha256=hash_of_payload_with_secret"
+}
+```
+
+---
+
+## Rate Limits
+
+<Card icon="gauge" title="API Rate Limits">
+**Twitter API specific rate limits**:
+- **Account operations**: 100 requests/hour
+- **Feed retrieval**: 500 requests/hour  
+- **Filter management**: 50 requests/hour
+- **Analytics**: 200 requests/hour
+- **Webhooks**: 10 requests/hour
+</Card>
+
+---
+
+## Error Handling
+
+### Twitter-Specific Errors
+
+<Tabs>
+  <TabItem value="404" label="404 Account Not Found">
+    **Twitter account doesn't exist**:
+    
+    ```json
+    {
+      "error": "account_not_found",
+      "message": "Twitter account @invaliduser not found",
+      "code": 404,
+      "username": "invaliduser"
+    }
+    ```
+  </TabItem>
+  
+  <TabItem value="403" label="403 Account Protected">
+    **Protected/private account**:
+    
+    ```json
+    {
+      "error": "account_protected",
+      "message": "Cannot track protected Twitter account",
+      "code": 403,
+      "username": "privateuser"
+    }
+    ```
+  </TabItem>
+  
+  <TabItem value="429" label="429 Twitter Rate Limited">
+    **Twitter API rate limit hit**:
+    
+    ```json
+    {
+      "error": "twitter_rate_limited",
+      "message": "Twitter API rate limit exceeded",
+      "code": 429,
+      "retry_after": 900
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+---
+
+## SDK Examples
+
+### JavaScript/TypeScript
+
+```typescript
+import { OneClickAPI } from '@oneclick/sdk';
+
+const api = new OneClickAPI({ apiKey: 'your-api-key' });
+
+// Subscribe to account
+const subscription = await api.twitter.subscribe({
+  username: 'elonmusk',
+  priority: 'high',
+  enableLaunch: true,
+  maxSolPerLaunch: 0.1
+});
+
+// Get feed
+const feed = await api.twitter.getFeed({
+  filter: 'launched',
+  limit: 20
+});
+
+// Create filter
+const filter = await api.twitter.createFilter({
+  name: 'High Confidence Signals',
+  conditions: {
+    keywords: ['gem', 'alpha'],
+    minFollowers: 10000,
+    sentiment: 'POSITIVE'
+  },
+  actions: {
+    highlightColor: '#FFD700',
+    sendNotification: true
+  }
+});
+
+// Set up webhook
+await api.twitter.setWebhook({
+  url: 'https://yourserver.com/webhook',
+  events: ['new_tweet', 'filter_match']
+});
+```
+
+### Python
+
+```python
+from oneclick_sdk import OneClickAPI
+
+api = OneClickAPI(api_key='your-api-key')
+
+# Subscribe to account
+subscription = api.twitter.subscribe(
+    username='elonmusk',
+    priority='high',
+    enable_launch=True,
+    max_sol_per_launch=0.1
+)
+
+# Get tracked accounts
+accounts = api.twitter.get_accounts(is_tracked=True)
+
+# Create filter
+filter_obj = api.twitter.create_filter(
+    name='Moonshot Detector',
+    conditions={
+        'keywords': ['moon', '100x'],
+        'min_followers': 5000,
+        'sentiment': 'POSITIVE'
+    },
+    actions={
+        'highlight_color': '#00FF00',
+        'send_notification': True
+    }
+)
+```
+
+---
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card
+    title="Account Selection"
+    icon="users"
+  >
+    **Quality over quantity**:
+    - Track 20-50 high-quality accounts
+    - Focus on accounts with good track records
+    - Regular review and cleanup
+    - Monitor account performance metrics
+  </Card>
+  <Card
+    title="Filter Strategy"
+    icon="filter"
+  >
+    **Smart filtering**:
+    - Start with broad filters, then narrow
+    - Use sentiment analysis effectively
+    - Combine multiple conditions
+    - Test and iterate filter performance
+  </Card>
+</CardGroup>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Settings API"
+    icon="settings"
+    href="/api-reference/settings"
+  >
+    Manage user preferences and configuration
+  </Card>
+  <Card
+    title="Token API"
+    icon="coins"
+    href="/api-reference/tokens"
+  >
+    Launch tokens from Twitter signals
+  </Card>
+</CardGroup>
+
+<Tip>
+**Integration Tip**: Use webhooks for real-time notifications instead of polling the feed API. This reduces API usage and provides faster response times for time-sensitive opportunities.
+</Tip>

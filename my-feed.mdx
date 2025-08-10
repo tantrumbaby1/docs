@@ -1,0 +1,348 @@
+---
+title: "My Feed"
+description: "Advanced feed management with account subscriptions, custom filters, and smart notifications"
+---
+
+# My Feed
+
+My Feed is OneClick's subscription management center where you control which Twitter accounts to track, configure intelligent filters, and set up notifications to never miss important signals.
+
+<Card icon="rss" title="Access My Feed">
+Click the **"My Feed"** button in the top navigation bar or the account counter in the CT Tracker header to open the subscription modal.
+</Card>
+
+## Tab Overview
+
+My Feed is organized into three main sections:
+
+<CardGroup cols={3}>
+  <Card
+    title="Accounts"
+    icon="users"
+  >
+    **Search and subscribe** to Twitter accounts you want to track
+  </Card>
+  <Card
+    title="Filters"
+    icon="filter"
+  >
+    **Configure rules** to highlight and prioritize specific content
+  </Card>
+  <Card
+    title="Notifications"
+    icon="bell"
+  >
+    **Set up alerts** for important account activity
+  </Card>
+</CardGroup>
+
+---
+
+## Accounts Tab
+
+### Finding Accounts
+
+<AccordionGroup>
+  <Accordion icon="search" title="Search Functionality">
+    **Quick search** by Twitter handle, display name, or partial matches:
+    - Type `@elonmusk` or `elon` to find accounts
+    - Search results show profile pictures and follower counts
+    - **Real-time suggestions** as you type
+  </Accordion>
+  
+  <Accordion icon="star" title="Popular Accounts">
+    **Pre-curated lists** of high-quality crypto Twitter accounts:
+    - Top crypto influencers and analysts
+    - Project founders and developers  
+    - News outlets and alpha callers
+    - Trading communities and DAOs
+  </Accordion>
+  
+  <Accordion icon="history" title="Recently Added">
+    **Quick access** to accounts you've recently subscribed to or searched for.
+  </Accordion>
+</AccordionGroup>
+
+### Subscription Management
+
+For each tracked account, you can configure:
+
+<Steps>
+  <Step title="Basic Tracking">
+    **Enable/disable** the account to appear in your CT Tracker feed.
+  </Step>
+  <Step title="Launch Settings">
+    **Auto-launch configuration**:
+    - Enable automatic token launches from this account
+    - Set maximum SOL amount per launch
+    - Configure cooldown periods between launches
+  </Step>
+  <Step title="Priority Level">
+    **Set importance level**:
+    - 🔥 **High**: Priority notifications and highlighting
+    - ⚡ **Medium**: Standard tracking
+    - 📱 **Low**: Background monitoring only
+  </Step>
+</Steps>
+
+### Account Categories
+
+Organize your tracked accounts into categories:
+
+- **Alpha Callers**: High-signal accounts for early opportunities
+- **News Sources**: Official project accounts and news outlets  
+- **Influencers**: Popular crypto personalities and analysts
+- **Developers**: Technical insights and project updates
+- **Communities**: DAO updates and community signals
+
+---
+
+## Filters Tab
+
+### Content Filtering
+
+Create intelligent rules to automatically highlight or prioritize specific types of content:
+
+<CardGroup cols={2}>
+  <Card
+    title="Keyword Filters"
+    icon="magnifying-glass"
+  >
+    **Text-based rules** to catch specific mentions:
+    - Token names and tickers
+    - Project keywords
+    - Technical terms
+    - Bullish/bearish indicators
+  </Card>
+  <Card
+    title="Pattern Matching"
+    icon="code"
+  >
+    **Advanced patterns** for complex filtering:
+    - Contract address formats
+    - Price targets and ranges
+    - Date and time conditions
+    - Engagement thresholds
+  </Card>
+</CardGroup>
+
+### Filter Actions
+
+When a filter matches, OneClick can:
+
+<AccordionGroup>
+  <Accordion icon="palette" title="Visual Highlighting">
+    **Color-code tweets** that match your filters:
+    - Red border for high-priority signals
+    - Gold highlighting for potential launches
+    - Blue accents for educational content
+    - Custom colors for specific categories
+  </Accordion>
+  
+  <Accordion icon="bell" title="Instant Notifications">
+    **Real-time alerts** when filter conditions are met:
+    - Browser notifications
+    - Sound alerts
+    - Email notifications (premium)
+    - Discord webhooks (premium)
+  </Accordion>
+  
+  <Accordion icon="rocket" title="Auto-Launch Triggers">
+    **Automated token creation** when specific patterns are detected:
+    - Launch when keywords + contract address appear
+    - Auto-launch from specific high-signal accounts
+    - Time-based launch conditions
+    - Sentiment-based triggers
+  </Accordion>
+</AccordionGroup>
+
+### Example Filters
+
+<CodeGroup>
+```yaml Popular Patterns
+# High-signal keywords
+keywords: ["gem", "alpha", "early", "launching", "deploying"]
+
+# Price targets  
+patterns: ["\\$[0-9]+", "\\d+x", "moon", "pump"]
+
+# Contract addresses
+addresses: ["[A-Za-z0-9]{32,44}"]
+```
+
+```yaml Advanced Rules  
+# Combination filters
+rules:
+  - keywords: ["new token"] AND account_priority: "high"
+  - engagement: >100 AND keywords: ["solana", "launch"]
+  - time_posted: "last_30_minutes" AND pattern: "contract_address"
+```
+</CodeGroup>
+
+---
+
+## Notifications Tab
+
+### Notification Types
+
+<CardGroup cols={2}>
+  <Card
+    title="Real-Time Alerts"
+    icon="zap"
+  >
+    **Instant notifications** for:
+    - New posts from priority accounts
+    - Filter matches and triggers
+    - Launch opportunities
+    - Breaking news and announcements
+  </Card>
+  <Card
+    title="Digest Updates"
+    icon="clock"
+  >
+    **Scheduled summaries** of:
+    - Daily activity recap
+    - Weekly performance reports
+    - Monthly account analytics
+    - Trending topics and keywords
+  </Card>
+</CardGroup>
+
+### Delivery Channels
+
+Configure where and how you receive notifications:
+
+<AccordionGroup>
+  <Accordion icon="browser" title="Browser Notifications">
+    **Desktop alerts** appear directly in your browser:
+    - Permission-based system
+    - Click to jump directly to content
+    - Customizable duration and sounds
+    - Works even when OneClick tab is inactive
+  </Accordion>
+  
+  <Accordion icon="envelope" title="Email Notifications">
+    **Email alerts** for important updates:
+    - Configurable frequency (instant, hourly, daily)
+    - Rich HTML formatting with embedded tweets
+    - Mobile-friendly responsive design
+    - Unsubscribe options for each category
+  </Accordion>
+  
+  <Accordion icon="mobile" title="Mobile Push">
+    **Native mobile notifications** via OneClick mobile app:
+    - iOS and Android support
+    - Background delivery
+    - Action buttons for quick responses
+    - Sync with desktop preferences
+  </Accordion>
+</AccordionGroup>
+
+### Smart Notification Settings
+
+<Steps>
+  <Step title="Quiet Hours">
+    **Set time periods** when notifications are paused:
+    - Automatically respect your timezone
+    - Weekend and holiday scheduling
+    - Override options for emergency alerts
+  </Step>
+  <Step title="Frequency Control">
+    **Prevent notification spam**:
+    - Maximum notifications per hour/day
+    - Cooldown periods between similar alerts
+    - Priority-based delivery ordering
+  </Step>
+  <Step title="Content Filtering">
+    **Choose what triggers notifications**:
+    - Account priority levels
+    - Specific filter matches
+    - Engagement thresholds
+    - Content categories
+  </Step>
+</Steps>
+
+---
+
+## Advanced Features
+
+### Bulk Operations
+
+<CardGroup cols={2}>
+  <Card
+    title="Mass Subscribe"
+    icon="plus-circle"
+  >
+    **Import account lists** from CSV files or Twitter lists for quick setup.
+  </Card>
+  <Card
+    title="Batch Configure"
+    icon="settings"
+  >
+    **Apply settings** to multiple accounts simultaneously for efficient management.
+  </Card>
+</CardGroup>
+
+### Analytics & Insights
+
+Track the performance of your subscriptions:
+
+- **Account activity metrics**: Posts per day, engagement rates
+- **Filter effectiveness**: Match rates and successful launches  
+- **Notification analytics**: Open rates and response times
+- **ROI tracking**: Successful launches from each account
+
+### Export & Backup
+
+- **Export subscription lists** for backup or sharing
+- **Filter configuration backup** for easy restoration
+- **Analytics data export** for external analysis
+- **OPML support** for feed reader compatibility
+
+---
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card
+    title="Account Curation"
+    icon="star"
+  >
+    **Quality over quantity**: 20-30 high-signal accounts perform better than 200+ noisy ones.
+  </Card>
+  <Card
+    title="Filter Strategy"
+    icon="target"
+  >
+    **Start simple**: Begin with keyword filters, then add complexity as you learn the patterns.
+  </Card>
+</CardGroup>
+
+<Warning>
+**Notification Fatigue**: Too many notifications can be counterproductive. Start with conservative settings and adjust based on your trading style and schedule.
+</Warning>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Explore CT Tracker"
+    icon="twitter"
+    href="/ct-tracker"
+  >
+    See how your configured feed appears in the main interface
+  </Card>
+  <Card
+    title="OneClick Launching"
+    icon="rocket"
+    href="/oneclick-launching"
+  >
+    Learn how to launch tokens directly from tracked content
+  </Card>
+</CardGroup>
+
+<Tip>
+**Pro Tip**: Regularly review and update your subscriptions. Crypto Twitter evolves quickly - accounts that were alpha sources last month might be noise today. Stay agile with your curation.
+</Tip>

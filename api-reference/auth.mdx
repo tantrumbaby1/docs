@@ -1,0 +1,482 @@
+---
+title: "Authentication"
+description: "OneClick API authentication using Privy and wallet integration"
+---
+
+# API Authentication
+
+OneClick uses Privy for secure user authentication combined with Solana wallet integration. This provides a seamless login experience while maintaining full control over your crypto assets.
+
+<Card icon="key" title="Authentication Flow">
+OneClick's authentication system combines **Privy's social/email login** with **Solana wallet management** for the best of both worlds - easy access and crypto security.
+</Card>
+
+## Authentication Methods
+
+### Privy Authentication
+
+<CardGroup cols={2}>
+  <Card
+    title="Email Login"
+    icon="envelope"
+  >
+    **Traditional email-based authentication**:
+    - Email + password registration
+    - Email verification required
+    - Password reset functionality
+    - Secure session management
+  </Card>
+  <Card
+    title="Social Login"
+    icon="share-alt"
+  >
+    **Social provider authentication**:
+    - Discord OAuth integration
+    - Google login (coming soon)
+    - Twitter login (coming soon)
+    - GitHub integration (coming soon)
+  </Card>
+</CardGroup>
+
+### Wallet Integration
+
+<AccordionGroup>
+  <Accordion icon="wallet" title="Wallet Connection">
+    **Connect existing Solana wallets**:
+    - **Phantom**: Most popular Solana wallet
+    - **Solflare**: Browser and mobile support
+    - **Backpack**: Native Web3 experience
+    - **Hardware wallets**: Ledger support (coming soon)
+  </Accordion>
+  
+  <Accordion icon="key" title="Turnkey Integration">
+    **Embedded wallet infrastructure**:
+    - **Secure key generation**: Hardware-backed security
+    - **Cross-device sync**: Access from any device
+    - **Recovery options**: Social recovery mechanisms
+    - **Enterprise security**: Institutional-grade protection
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## API Access Tokens
+
+### Getting Access Tokens
+
+<Steps>
+  <Step title="User Login">
+    **Authenticate through Privy**: User logs in via email/social and connects wallet
+  </Step>
+  <Step title="Token Generation">
+    **Privy generates JWT**: Secure token with user identity and permissions
+  </Step>
+  <Step title="API Requests">
+    **Include token in requests**: Add Authorization header to all API calls
+  </Step>
+</Steps>
+
+### Token Format
+
+```typescript
+// JWT Token Structure
+{
+  "iss": "privy.io",
+  "sub": "did:privy:user_id",
+  "aud": "oneclick-api",
+  "exp": 1234567890,
+  "iat": 1234567890,
+  "user": {
+    "id": "user_uuid",
+    "email": "user@example.com",
+    "wallet_address": "wallet_public_key"
+  }
+}
+```
+
+### Authorization Header
+
+<CodeGroup>
+```bash cURL
+curl -X GET "https://api.oneclick.com/user/profile" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.oneclick.com/user/profile', {
+  headers: {
+    'Authorization': `Bearer ${accessToken}`,
+    'Content-Type': 'application/json'
+  }
+});
+```
+
+```python Python
+import requests
+
+headers = {
+    'Authorization': f'Bearer {access_token}',
+    'Content-Type': 'application/json'
+}
+
+response = requests.get('https://api.oneclick.com/user/profile', headers=headers)
+```
+</CodeGroup>
+
+---
+
+## Authentication Endpoints
+
+### Login Flow
+
+<Tabs>
+  <TabItem value="privy" label="Privy Login">
+    **Privy-managed authentication flow**:
+    
+    ```typescript
+    // Frontend: Initialize Privy
+    import { PrivyProvider } from '@privy-io/react-auth';
+    
+    // Wrap your app with PrivyProvider
+    <PrivyProvider appId="your-app-id">
+      <YourApp />
+    </PrivyProvider>
+    ```
+    
+    **No direct API endpoints needed** - Privy handles the authentication flow
+  </TabItem>
+  
+  <TabItem value="wallet" label="Wallet Connection">
+    **Connect Solana wallet after Privy login**:
+    
+    ```javascript
+    // Connect wallet endpoint
+    POST /api/auth/connect-wallet
+    
+    {
+      "wallet_address": "string",
+      "signature": "string", // Signed message proving wallet ownership
+      "message": "string"    // Original message that was signed
+    }
+    ```
+    
+    **Response**:
+    ```json
+    {
+      "success": true,
+      "user": {
+        "id": "user_uuid",
+        "wallet_address": "wallet_public_key",
+        "is_verified": true
+      }
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+### Session Management
+
+<Card icon="clock" title="Token Refresh">
+**Automatic token refresh handled by Privy**:
+- Tokens automatically refresh before expiration
+- No manual refresh API calls needed
+- Seamless user experience
+- Secure token rotation
+</Card>
+
+### Logout
+
+```javascript
+// Frontend logout (Privy handles this)
+import { usePrivy } from '@privy-io/react-auth';
+
+const { logout } = usePrivy();
+
+// Call logout function
+await logout();
+```
+
+---
+
+## Security Features
+
+### Request Security
+
+<AccordionGroup>
+  <Accordion icon="shield" title="JWT Validation">
+    **Server-side token validation**:
+    - **Signature verification**: Cryptographic validation
+    - **Expiration checking**: Prevent stale token usage
+    - **Issuer validation**: Verify token source
+    - **Audience checking**: Ensure correct API target
+  </Accordion>
+  
+  <Accordion icon="lock" title="HTTPS Only">
+    **Secure transport layer**:
+    - **TLS 1.3**: Latest encryption standards
+    - **Certificate pinning**: Prevent MITM attacks
+    - **HSTS headers**: Force secure connections
+    - **Secure cookies**: HttpOnly and Secure flags
+  </Accordion>
+</AccordionGroup>
+
+### Rate Limiting
+
+<CardGroup cols={2}>
+  <Card
+    title="User Rate Limits"
+    icon="gauge"
+  >
+    **Per-user request limits**:
+    - 1000 requests/hour for authenticated users
+    - 100 requests/hour for public endpoints
+    - Burst allowance: 50 requests/minute
+    - Enterprise: Custom limits available
+  </Card>
+  <Card
+    title="Endpoint Limits"
+    icon="list"
+  >
+    **Endpoint-specific limits**:
+    - Token launches: 10/hour
+    - Balance updates: 60/hour
+    - Twitter data: 300/hour
+    - Settings updates: 20/hour
+  </Card>
+</CardGroup>
+
+---
+
+## Error Handling
+
+### Authentication Errors
+
+<Tabs>
+  <TabItem value="401" label="401 Unauthorized">
+    **Missing or invalid authentication**:
+    
+    ```json
+    {
+      "error": "unauthorized",
+      "message": "Invalid or missing authentication token",
+      "code": 401
+    }
+    ```
+    
+    **Solutions**:
+    - Check Authorization header format
+    - Verify token hasn't expired
+    - Ensure user is logged in
+    - Re-authenticate if needed
+  </TabItem>
+  
+  <TabItem value="403" label="403 Forbidden">
+    **Insufficient permissions**:
+    
+    ```json
+    {
+      "error": "forbidden", 
+      "message": "Insufficient permissions for this resource",
+      "code": 403
+    }
+    ```
+    
+    **Solutions**:
+    - Verify user has required permissions
+    - Check wallet connection status
+    - Ensure account is verified
+    - Contact support if needed
+  </TabItem>
+  
+  <TabItem value="429" label="429 Rate Limited">
+    **Too many requests**:
+    
+    ```json
+    {
+      "error": "rate_limited",
+      "message": "Rate limit exceeded",
+      "retry_after": 3600,
+      "code": 429
+    }
+    ```
+    
+    **Solutions**:
+    - Wait for retry_after seconds
+    - Implement exponential backoff
+    - Reduce request frequency
+    - Consider upgrading plan
+  </TabItem>
+</Tabs>
+
+---
+
+## Integration Examples
+
+### React Integration
+
+```typescript
+import { usePrivy } from '@privy-io/react-auth';
+import { useState, useEffect } from 'react';
+
+export function OneClickAPI() {
+  const { user, getAccessToken, authenticated } = usePrivy();
+  const [apiData, setApiData] = useState(null);
+
+  const callAPI = async () => {
+    if (!authenticated) return;
+    
+    try {
+      const token = await getAccessToken();
+      const response = await fetch('/api/user/profile', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+      
+      const data = await response.json();
+      setApiData(data);
+    } catch (error) {
+      console.error('API call failed:', error);
+    }
+  };
+
+  return (
+    <div>
+      {authenticated ? (
+        <button onClick={callAPI}>Call API</button>
+      ) : (
+        <p>Please log in to access API</p>
+      )}
+    </div>
+  );
+}
+```
+
+### Node.js Integration
+
+```javascript
+const express = require('express');
+const { PrivyApi } = require('@privy-io/server-auth');
+
+const app = express();
+const privy = new PrivyApi(process.env.PRIVY_APP_SECRET);
+
+// Middleware to verify Privy tokens
+const authenticatePrivy = async (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader?.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'Missing authorization header' });
+    }
+
+    const token = authHeader.substring(7);
+    const claims = await privy.verifyAuthToken(token);
+    
+    req.user = claims;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: 'Invalid token' });
+  }
+};
+
+// Protected route example
+app.get('/api/user/profile', authenticatePrivy, (req, res) => {
+  res.json({ user: req.user });
+});
+```
+
+---
+
+## Testing & Development
+
+### Development Environment
+
+<Card icon="code" title="Local Development">
+**Testing authentication locally**:
+- Use Privy test app ID for development
+- Test tokens work with localhost
+- Mock wallet connections for testing
+- Use Solana devnet for blockchain operations
+</Card>
+
+### API Testing
+
+<CodeGroup>
+```bash Test Authentication
+# Test token validity
+curl -X GET "http://localhost:3001/api/auth/verify" \
+  -H "Authorization: Bearer YOUR_TEST_TOKEN"
+
+# Expected response
+{
+  "valid": true,
+  "user": {
+    "id": "test_user_id",
+    "email": "test@example.com"
+  }
+}
+```
+
+```javascript Frontend Testing
+// Test API call with authentication
+const testAPI = async () => {
+  const token = await getAccessToken();
+  const response = await fetch('/api/test', {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  console.log(await response.json());
+};
+```
+</CodeGroup>
+
+---
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card
+    title="Token Security"
+    icon="shield-check"
+  >
+    **Protect access tokens**:
+    - Never store tokens in localStorage
+    - Use secure, httpOnly cookies when possible
+    - Implement token refresh logic
+    - Handle expired tokens gracefully
+  </Card>
+  <Card
+    title="Error Handling"
+    icon="exclamation-triangle"
+  >
+    **Robust error handling**:
+    - Always check authentication status
+    - Implement retry logic with backoff
+    - Provide clear error messages to users
+    - Log authentication errors for debugging
+  </Card>
+</CardGroup>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Token API"
+    icon="coins"
+    href="/api-reference/tokens"
+  >
+    Learn to interact with token launch and management endpoints
+  </Card>
+  <Card
+    title="Twitter API"
+    icon="twitter"
+    href="/api-reference/twitter"
+  >
+    Integrate with Twitter tracking and feed management
+  </Card>
+</CardGroup>
+
+<Tip>
+**Security Tip**: Always validate tokens server-side and never trust client-side authentication status alone. Implement proper CORS policies and rate limiting to prevent abuse of your API endpoints.
+</Tip>

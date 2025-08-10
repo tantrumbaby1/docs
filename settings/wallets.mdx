@@ -1,0 +1,395 @@
+---
+title: "Wallet Settings"
+description: "Generate, import, and manage multiple Solana wallets for trading and launching"
+---
+
+# Wallet Settings
+
+Manage your Solana wallets for secure trading and token launching. OneClick supports multiple wallets, allowing you to separate trading funds, manage risk, and organize your crypto operations.
+
+<Card icon="wallet" title="Wallet Management">
+Access wallet settings through **Settings > Wallets** to generate new wallets, import existing ones, set primary wallets, and monitor balances across all your accounts.
+</Card>
+
+## Wallet Operations
+
+### Generate New Wallets
+
+<Steps>
+  <Step title="Create Wallet">
+    **Click "Generate New Wallet"** to create a fresh Solana wallet:
+    - Cryptographically secure key generation
+    - Automatic backup phrase generation
+    - Instant integration with OneClick
+    - Zero manual configuration required
+  </Step>
+  <Step title="Secure Your Keys">
+    **Immediately backup your seed phrase**:
+    - Write down all 12 words in order
+    - Store in multiple secure locations
+    - Never share or store digitally
+    - Test recovery before using
+  </Step>
+  <Step title="Fund Your Wallet">
+    **Add SOL for trading**:
+    - Send SOL from exchanges or other wallets
+    - Start with small amounts for testing
+    - Keep extra SOL for transaction fees
+    - Monitor balance before launching
+  </Step>
+</Steps>
+
+### Import Existing Wallets
+
+<AccordionGroup>
+  <Accordion icon="key" title="Private Key Import">
+    **Import wallets using private keys**:
+    - Paste your base58-encoded private key
+    - Wallet automatically appears in list
+    - Existing balances and tokens load
+    - **Security Note**: Only import on trusted devices
+  </Accordion>
+  
+  <Accordion icon="file-text" title="Seed Phrase Import">
+    **Restore wallets from backup phrases**:
+    - Enter 12 or 24-word seed phrases
+    - Automatic derivation path detection
+    - Supports standard BIP44 wallets
+    - Compatible with Phantom, Solflare, and others
+  </Accordion>
+  
+  <Accordion icon="usb" title="Hardware Wallet Support">
+    **Connect hardware wallets** (Coming Soon):
+    - Ledger Nano S/X integration
+    - Trezor Model T support
+    - Enhanced security for large amounts
+    - Transaction signing on device
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Wallet Management
+
+### Primary Wallet
+
+<Card icon="star" title="Set Primary Wallet">
+**Designate your main trading wallet**:
+- Used for all OneClick launches by default
+- Primary wallet for CT Tracker launches
+- Default for new token purchases
+- Easy switching between wallets
+</Card>
+
+### Wallet Information
+
+Each wallet displays:
+
+<CardGroup cols={2}>
+  <Card
+    title="Balance Information"
+    icon="coins"
+  >
+    **Real-time balance tracking**:
+    - SOL balance (lamports precision)
+    - USD equivalent value
+    - Token holdings count
+    - Last update timestamp
+  </Card>
+  <Card
+    title="Wallet Details"
+    icon="info"
+  >
+    **Essential wallet data**:
+    - Public address (copy to clipboard)
+    - Custom wallet names/labels
+    - Import date and source
+    - Transaction history summary
+  </Card>
+</CardGroup>
+
+### Bulk Operations
+
+<AccordionGroup>
+  <Accordion icon="refresh" title="Refresh All Balances">
+    **Update all wallet balances simultaneously**:
+    - Queries Solana RPC for latest data
+    - Updates SOL and token balances
+    - Refreshes USD valuations
+    - Shows last refresh timestamp
+  </Accordion>
+  
+  <Accordion icon="arrows-right-left" title="Bulk Transfer">
+    **Move funds between wallets**:
+    - Transfer SOL between your wallets
+    - Consolidate small balances
+    - Distribute funds for risk management
+    - Batch transaction processing
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Security Features
+
+### Private Key Protection
+
+<Warning>
+**Critical Security**: OneClick encrypts and stores private keys locally. Never share keys or use untrusted devices for wallet operations.
+</Warning>
+
+<CardGroup cols={2}>
+  <Card
+    title="Local Encryption"
+    icon="lock"
+  >
+    **Secure local storage**:
+    - AES-256 encryption for private keys
+    - Browser-based secure storage
+    - No server-side key storage
+    - Automatic session management
+  </Card>
+  <Card
+    title="Access Controls"
+    icon="shield"
+  >
+    **Transaction protection**:
+    - Confirmation required for large transactions
+    - Session timeouts for security
+    - Automatic logout on inactivity
+    - Device-specific encryption keys
+  </Card>
+</CardGroup>
+
+### Backup & Recovery
+
+<Steps>
+  <Step title="Regular Backups">
+    **Create secure backups**:
+    - Export encrypted wallet files
+    - Backup seed phrases offline
+    - Store in multiple secure locations
+    - Test recovery procedures regularly
+  </Step>
+  <Step title="Recovery Testing">
+    **Verify backup integrity**:
+    - Test seed phrase restoration
+    - Verify private key imports
+    - Confirm access to all wallets
+    - Document recovery procedures
+  </Step>
+  <Step title="Emergency Procedures">
+    **Plan for emergencies**:
+    - Device loss or theft protocols
+    - Compromise detection procedures
+    - Rapid fund transfer capabilities
+    - Support contact information
+  </Step>
+</Steps>
+
+---
+
+## Balance Monitoring
+
+### Real-Time Updates
+
+<AccordionGroup>
+  <Accordion icon="clock" title="Auto-Refresh">
+    **Automatic balance updates**:
+    - Updates every 30 seconds during active use
+    - Immediate updates after transactions
+    - Network status-aware refresh rates
+    - Manual refresh always available
+  </Accordion>
+  
+  <Accordion icon="bell" title="Balance Alerts">
+    **Low balance notifications**:
+    - Customizable SOL threshold alerts
+    - Warnings before insufficient funds
+    - Daily balance summary emails
+    - Critical balance emergency alerts
+  </Accordion>
+</AccordionGroup>
+
+### Portfolio Overview
+
+View aggregated data across all wallets:
+
+- **Total Portfolio Value**: Combined SOL + tokens value
+- **SOL Distribution**: Balance spread across wallets  
+- **Token Holdings**: All tokens across all wallets
+- **Performance Metrics**: Daily/weekly/monthly changes
+
+---
+
+## Advanced Features
+
+### Multi-Wallet Trading
+
+<CardGroup cols={2}>
+  <Card
+    title="Wallet Rotation"
+    icon="arrows-rotate"
+  >
+    **Automatic wallet switching**:
+    - Round-robin trading across wallets
+    - Balance-based wallet selection
+    - Risk distribution strategies
+    - Performance-based allocation
+  </Card>
+  <Card
+    title="Specialized Wallets"
+    icon="tags"
+  >
+    **Purpose-specific wallets**:
+    - High-frequency trading wallets
+    - Long-term holding wallets
+    - Experimental/test wallets
+    - Emergency reserve wallets
+  </Card>
+</CardGroup>
+
+### Risk Management
+
+<AccordionGroup>
+  <Accordion icon="percentage" title="Allocation Limits">
+    **Set spending limits per wallet**:
+    - Maximum SOL per trade
+    - Daily spending caps
+    - Emergency reserve amounts
+    - Risk-adjusted position sizing
+  </Accordion>
+  
+  <Accordion icon="chart-pie" title="Diversification">
+    **Spread risk across wallets**:
+    - Never put all funds in one wallet
+    - Separate hot/cold storage
+    - Rotate active trading wallets
+    - Maintain emergency reserves
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Network Configuration
+
+### RPC Endpoints
+
+<Card icon="server" title="Custom RPC Configuration">
+**Optimize network performance**:
+- Choose fastest RPC endpoints
+- Configure backup endpoints
+- Premium RPC service integration
+- Load balancing across providers
+</Card>
+
+### Network Settings
+
+- **Mainnet/Devnet**: Switch between networks for testing
+- **Commitment Level**: Choose finalization requirements
+- **Timeout Settings**: Configure request timeouts
+- **Retry Logic**: Automatic retry on network errors
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+<AccordionGroup>
+  <Accordion icon="wifi" title="Connection Problems">
+    **If wallets won't connect**:
+    - Check internet connection
+    - Verify RPC endpoint status
+    - Try different browser
+    - Clear browser cache
+    - Disable browser extensions
+  </Accordion>
+  
+  <Accordion icon="refresh" title="Balance Issues">
+    **If balances don't update**:
+    - Manual refresh button
+    - Check network status
+    - Verify wallet addresses
+    - Contact support with wallet address
+  </Accordion>
+  
+  <Accordion icon="key" title="Import Failures">
+    **If wallet import fails**:
+    - Verify private key format
+    - Check seed phrase word count
+    - Ensure no extra spaces
+    - Try different derivation paths
+  </Accordion>
+</AccordionGroup>
+
+### Recovery Procedures
+
+<Steps>
+  <Step title="Document Everything">
+    **Before problems occur**:
+    - Write down all wallet addresses
+    - Backup all seed phrases securely
+    - Note custom labels and purposes
+    - Record important transaction hashes
+  </Step>
+  <Step title="Emergency Access">
+    **If locked out of OneClick**:
+    - Import wallets into Phantom/Solflare
+    - Access funds through alternative interfaces
+    - Transfer to secure locations
+    - Contact support for account recovery
+  </Step>
+</Steps>
+
+---
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card
+    title="Security First"
+    icon="shield-check"
+  >
+    **Protect your assets**:
+    - Use hardware wallets for large amounts
+    - Keep trading wallets separate from savings
+    - Regular security audits
+    - Never share private keys
+  </Card>
+  <Card
+    title="Organization"
+    icon="folder"
+  >
+    **Stay organized**:
+    - Use descriptive wallet names
+    - Document wallet purposes
+    - Regular balance reviews
+    - Consolidate unused wallets
+  </Card>
+</CardGroup>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Configure Launch Settings"
+    icon="rocket"
+    href="/settings/launching"
+  >
+    Set up your token launch parameters and defaults
+  </Card>
+  <Card
+    title="Explore Advanced Settings"
+    icon="cog"
+    href="/settings/advanced"
+  >
+    Configure automation and advanced trading features
+  </Card>
+</CardGroup>
+
+<Tip>
+**Pro Tip**: Keep at least 3 different wallets - one for active trading with small amounts, one for medium-term holds, and one for long-term savings. This separation helps manage risk and prevents accidental losses during high-frequency trading.
+</Tip>

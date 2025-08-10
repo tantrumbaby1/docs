@@ -1,0 +1,419 @@
+---
+title: "Launch Zone"
+description: "Token launch management with queue monitoring, sell automation, and position tracking"
+---
+
+# Launch Zone
+
+The Launch Zone is OneClick's mission control center for token launches. Monitor active deployments, manage positions, execute sells, and track performance all from one powerful interface.
+
+<Card icon="coins" title="What is Launch Zone?">
+Launch Zone combines launch queue management, position tracking, and automated selling into a unified workspace. From initial deployment to final exit, manage your entire token lifecycle here.
+</Card>
+
+## Interface Overview
+
+### Header Controls
+
+<CardGroup cols={3}>
+  <Card
+    title="New Launch"
+    icon="plus"
+  >
+    **Quick launch button** to deploy new tokens manually or from templates.
+  </Card>
+  <Card
+    title="Filter Tabs"
+    icon="filter"
+  >
+    **Status-based filtering** to focus on specific token states (Active, Completed, Failed).
+  </Card>
+  <Card
+    title="Bulk Actions"
+    icon="list-check"
+  >
+    **Multi-select operations** for efficient position management.
+  </Card>
+</CardGroup>
+
+### Token List
+
+Each token entry displays:
+
+- **Token Details**: Name, symbol, contract address
+- **Launch Status**: Real-time deployment progress
+- **Position Info**: Holdings, current value, P&L
+- **Quick Actions**: Sell buttons, copy address, delete
+- **Performance Metrics**: Price change, volume, market cap
+
+---
+
+## Launch Status Types
+
+### Active Launches
+
+<AccordionGroup>
+  <Accordion icon="clock" title="Pending">
+    **Queued for deployment**: Token is waiting in the launch queue. Shows estimated time to deployment and queue position.
+  </Accordion>
+  
+  <Accordion icon="spinner" title="Processing">
+    **Currently deploying**: Token creation is in progress. Real-time updates show:
+    - Metadata upload progress
+    - Smart contract deployment
+    - Initial liquidity addition
+    - Token purchase execution
+  </Accordion>
+  
+  <Accordion icon="upload" title="Uploading Metadata">
+    **IPFS upload phase**: Token metadata and images are being uploaded to decentralized storage.
+  </Accordion>
+  
+  <Accordion icon="code" title="Creating Token">
+    **On-chain deployment**: Smart contract is being deployed to Solana blockchain.
+  </Accordion>
+  
+  <Accordion icon="shopping-cart" title="Buying Tokens">
+    **Initial purchase**: Executing the initial token buy using your configured SOL amount.
+  </Accordion>
+</AccordionGroup>
+
+### Completed States
+
+<CardGroup cols={2}>
+  <Card
+    title="Completed"
+    icon="check-circle"
+  >
+    **Successfully launched**: Token is live and you hold a position. Ready for monitoring and selling.
+  </Card>
+  <Card
+    title="Failed"
+    icon="x-circle"
+  >
+    **Launch failed**: Deployment encountered an error. Details available with retry options.
+  </Card>
+</CardGroup>
+
+---
+
+## Position Management
+
+### Token Holdings
+
+For each successfully launched token, Launch Zone displays:
+
+<Steps>
+  <Step title="Current Position">
+    **Real-time holdings**:
+    - Token quantity owned
+    - Current SOL value
+    - USD equivalent
+    - Percentage of total supply held
+  </Step>
+  <Step title="Performance Metrics">
+    **P&L tracking**:
+    - Unrealized gains/losses
+    - Percentage change from entry
+    - Best/worst price achieved
+    - Time held
+  </Step>
+  <Step title="Market Data">
+    **Live market information**:
+    - Current token price
+    - 24h price change
+    - Trading volume
+    - Market capitalization
+    - Liquidity metrics
+  </Step>
+</Steps>
+
+### Selling Options
+
+<CardGroup cols={2}>
+  <Card
+    title="Quick Sell Presets"
+    icon="zap"
+  >
+    **One-click selling** using your configured presets:
+    - 25% of holdings
+    - 50% of holdings  
+    - 75% of holdings
+    - 100% of holdings (full exit)
+  </Card>
+  <Card
+    title="Custom Amounts"
+    icon="calculator"
+  >
+    **Precise control** with manual sell amounts:
+    - Specific token quantities
+    - SOL target amounts
+    - Percentage-based sells
+    - Dollar value targets
+  </Card>
+</CardGroup>
+
+### Advanced Selling
+
+<AccordionGroup>
+  <Accordion icon="robot" title="Automated Sells">
+    **Set conditions** for automatic position exits:
+    - **Stop Loss**: Sell if price drops below threshold
+    - **Take Profit**: Sell when target profit is reached
+    - **Time-based**: Sell after holding for X duration
+    - **Volume-based**: Sell when trading volume hits target
+  </Accordion>
+  
+  <Accordion icon="chart-line" title="DCA Selling">
+    **Dollar-cost averaging** for gradual exits:
+    - Sell fixed amounts at regular intervals
+    - Scale out based on price targets
+    - Reduce holdings as profits increase
+    - Custom selling schedules
+  </Accordion>
+  
+  <Accordion icon="shield" title="Smart Slippage">
+    **Intelligent slippage protection**:
+    - Dynamic slippage based on liquidity
+    - MEV protection mechanisms
+    - Front-running detection and avoidance
+    - Transaction priority optimization
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Queue Management
+
+### Launch Queue
+
+The launch queue shows all pending deployments:
+
+<Steps>
+  <Step title="Queue Position">
+    **Your place in line** with estimated deployment time based on current network conditions.
+  </Step>
+  <Step title="Priority Options">
+    **Boost deployment speed**:
+    - Higher priority fees
+    - Express queue access
+    - Rush processing (premium feature)
+  </Step>
+  <Step title="Queue Actions">
+    **Manage pending launches**:
+    - Cancel queued deployments
+    - Modify launch parameters
+    - Reorder queue priority
+  </Step>
+</Steps>
+
+### Network Status
+
+Real-time Solana network information:
+
+- **TPS (Transactions Per Second)**: Current network throughput
+- **Slot Height**: Latest confirmed block
+- **Fee Recommendations**: Optimal priority fees for fast confirmation
+- **Congestion Level**: Network load and expected delays
+
+---
+
+## Performance Analytics
+
+### Individual Token Metrics
+
+<CardGroup cols={2}>
+  <Card
+    title="Price Performance"
+    icon="chart-line"
+  >
+    **Detailed price tracking**:
+    - Entry vs current price
+    - All-time high/low while held
+    - Average buy/sell prices
+    - Price volatility metrics
+  </Card>
+  <Card
+    title="Trading Activity"
+    icon="activity"
+  >
+    **Transaction history**:
+    - All buy/sell transactions
+    - Gas fees paid
+    - Slippage experienced
+    - Timing analysis
+  </Card>
+</CardGroup>
+
+### Portfolio Overview
+
+- **Total Portfolio Value**: Combined value of all positions
+- **Daily P&L**: Today's gains/losses across all tokens
+- **Best/Worst Performers**: Top gaining and losing positions
+- **Holding Duration**: Average time held per token
+- **Success Rate**: Percentage of profitable launches
+
+---
+
+## Filtering & Organization
+
+### Filter Tabs
+
+<AccordionGroup>
+  <Accordion icon="play" title="Active">
+    **Currently held positions**: Tokens you own and are tracking for selling opportunities.
+  </Accordion>
+  
+  <Accordion icon="check" title="Completed">
+    **Fully exited positions**: Tokens you've completely sold for historical reference.
+  </Accordion>
+  
+  <Accordion icon="x" title="Failed">
+    **Failed launches**: Deployments that encountered errors, with retry options available.
+  </Accordion>
+  
+  <Accordion icon="clock" title="Pending">
+    **Queue status**: Tokens waiting for deployment or currently processing.
+  </Accordion>
+</AccordionGroup>
+
+### Sorting Options
+
+- **Launch Date**: Newest or oldest first
+- **Performance**: Best or worst performing
+- **Value**: Highest or lowest position size
+- **Status**: Group by launch status
+- **Platform**: Filter by deployment platform
+
+### Search & Filters
+
+- **Text search**: Find tokens by name, symbol, or contract
+- **Date range**: Filter by launch date periods
+- **Performance**: Show only profitable/unprofitable positions
+- **Platform**: Filter by launch platform (Pump.fun, etc.)
+
+---
+
+## Integration Features
+
+### Cross-Platform Sync
+
+<CardGroup cols={2}>
+  <Card
+    title="CT Tracker Integration"
+    icon="twitter"
+  >
+    **Seamless connection**: Tokens launched from CT Tracker automatically appear in Launch Zone with originating tweet reference.
+  </Card>
+  <Card
+    title="Settings Sync"
+    icon="settings"
+  >
+    **Unified configuration**: Sell presets, platform preferences, and automation rules sync across all features.
+  </Card>
+</CardGroup>
+
+### External Connections
+
+- **DEX Integration**: Direct links to view tokens on Jupiter, Raydium, and other DEXs
+- **Chart Platforms**: One-click access to DexScreener, GeckoTerminal, and other charting tools  
+- **Block Explorers**: Quick access to Solscan and Solana Explorer for transaction details
+- **Social Platforms**: Links to token communities and social media
+
+---
+
+## Mobile Experience
+
+### Responsive Design
+
+- **Touch-optimized**: Large buttons and gesture-friendly interface
+- **Swipe Actions**: Swipe token cards for quick sell/delete actions
+- **Modal Interface**: Full-screen modals for detailed token management
+- **Offline Mode**: Basic functionality available without internet connection
+
+### Mobile-Specific Features
+
+- **Push Notifications**: Price alerts and status updates
+- **Widget Support**: Home screen widgets for portfolio overview
+- **Quick Actions**: Shortcuts for common selling operations
+- **Camera Integration**: QR code scanning for quick token lookup
+
+---
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card
+    title="Position Sizing"
+    icon="scale-balanced"
+  >
+    **Risk Management**: Never risk more than you can afford to lose. Use position sizing rules and stop losses.
+  </Card>
+  <Card
+    title="Take Profits"
+    icon="coins"
+  >
+    **Systematic Exits**: Use preset percentages to systematically take profits as tokens appreciate.
+  </Card>
+</CardGroup>
+
+<Warning>
+**High-Risk Trading**: Meme tokens and new launches are extremely volatile and risky. Only trade with funds you can afford to lose completely.
+</Warning>
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+<AccordionGroup>
+  <Accordion icon="clock" title="Slow Launches">
+    **If deployments are taking too long**:
+    - Check Solana network status
+    - Increase priority fee settings
+    - Consider using express queue
+    - Retry during off-peak hours
+  </Accordion>
+  
+  <Accordion icon="x-circle" title="Failed Launches">
+    **If launches are failing**:
+    - Verify wallet has sufficient SOL for fees
+    - Check network congestion levels
+    - Review token parameters for errors
+    - Contact support with transaction hashes
+  </Accordion>
+  
+  <Accordion icon="refresh" title="Stale Data">
+    **If prices/balances aren't updating**:
+    - Click the refresh button
+    - Check internet connection
+    - Clear browser cache
+    - Verify RPC endpoint connectivity
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Master OneClick Launching"
+    icon="mouse-pointer"
+    href="/oneclick-launching"
+  >
+    Learn the fastest ways to deploy tokens from anywhere
+  </Card>
+  <Card
+    title="Configure Launch Settings"
+    icon="settings"
+    href="/settings/launching"
+  >
+    Optimize your launch parameters and automation
+  </Card>
+</CardGroup>
+
+<Tip>
+**Pro Tip**: Set up automated selling rules before launching tokens. In fast-moving markets, having predetermined exit strategies prevents emotional decision-making and helps lock in profits.
+</Tip>

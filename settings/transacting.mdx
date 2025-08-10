@@ -1,0 +1,443 @@
+---
+title: "Transacting Settings"
+description: "Configure transaction services, tip amounts, and blockchain interaction preferences"
+---
+
+# Transacting Settings
+
+Configure how OneClick interacts with the Solana blockchain and various transaction services. Optimize for speed, cost, and reliability based on your trading style.
+
+<Card icon="exchange" title="Transaction Configuration">
+Access transacting settings through **Settings > Transacting** to configure RPC services, tip amounts, priority fees, and blockchain interaction preferences.
+</Card>
+
+## Transaction Services
+
+### Service Selection
+
+<CardGroup cols={2}>
+  <Card
+    title="None (Direct RPC)"
+    icon="server"
+  >
+    **Direct blockchain interaction**:
+    - No intermediary services
+    - Lowest cost option
+    - Standard transaction speed
+    - Basic MEV protection
+    - Suitable for casual trading
+  </Card>
+  <Card
+    title="Premium Services"
+    icon="crown"
+  >
+    **Enhanced transaction routing**:
+    - Faster transaction processing
+    - Advanced MEV protection
+    - Priority lanes and routing
+    - Higher reliability
+    - Professional trading features
+  </Card>
+</CardGroup>
+
+### Available Services
+
+<AccordionGroup>
+  <Accordion icon="circle" title="Circular Protocol">
+    **High-performance transaction service**:
+    - **Speed**: Ultra-fast transaction processing
+    - **MEV Protection**: Advanced front-running protection
+    - **Cost**: Competitive tip structure
+    - **Reliability**: 99.9% uptime guarantee
+    - **Best for**: High-frequency traders
+  </Accordion>
+  
+  <Accordion icon="star" title="Astralane">
+    **Enterprise-grade transaction routing**:
+    - **Features**: Priority routing and batching
+    - **Protection**: Institutional-level MEV shield
+    - **Performance**: Sub-second confirmations
+    - **Analytics**: Detailed transaction insights
+    - **Best for**: Large volume traders
+  </Accordion>
+  
+  <Accordion icon="clock" title="Temporal">
+    **Time-optimized transaction service**:
+    - **Timing**: Precision timing control
+    - **Scheduling**: Advanced transaction scheduling
+    - **Coordination**: Multi-transaction coordination
+    - **Efficiency**: Optimal gas usage
+    - **Best for**: Strategic timing trades
+  </Accordion>
+  
+  <Accordion icon="zap" title="ZeroSlot">
+    **Zero-latency transaction processing**:
+    - **Speed**: Microsecond processing
+    - **Latency**: Minimal confirmation delays
+    - **Optimization**: Real-time network adaptation
+    - **Reliability**: Redundant processing nodes
+    - **Best for**: Arbitrage and MEV trading
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Tip Configuration
+
+### Service Tips
+
+<Card icon="coins" title="Transaction Tips">
+**Configure tip amounts for each service** to ensure optimal transaction processing:
+- Tips incentivize validators to prioritize your transactions
+- Higher tips = faster processing
+- Dynamic tips adjust to network conditions
+- Service-specific optimization available
+</Card>
+
+### Tip Amounts by Service
+
+<Tabs>
+  <TabItem value="circular" label="Circular">
+    **Circular Protocol tip settings**:
+    
+    **Recommended amounts**:
+    - **Low**: 0.0001 SOL (standard processing)
+    - **Medium**: 0.001 SOL (faster processing)
+    - **High**: 0.01 SOL (priority processing)
+    
+    **Dynamic adjustment**: Auto-adjust based on network congestion
+  </TabItem>
+  
+  <TabItem value="astralane" label="Astralane">
+    **Astralane tip configuration**:
+    
+    **Recommended amounts**:
+    - **Standard**: 0.0005 SOL (enterprise baseline)
+    - **Priority**: 0.002 SOL (enhanced routing)
+    - **Express**: 0.005 SOL (maximum priority)
+    
+    **Features**: Includes advanced MEV protection
+  </TabItem>
+  
+  <TabItem value="temporal" label="Temporal">
+    **Temporal timing tips**:
+    
+    **Recommended amounts**:
+    - **Scheduled**: 0.0002 SOL (future execution)
+    - **Immediate**: 0.001 SOL (instant processing)
+    - **Coordinated**: 0.003 SOL (multi-tx coordination)
+    
+    **Benefits**: Precision timing control
+  </TabItem>
+  
+  <TabItem value="zeroslot" label="ZeroSlot">
+    **ZeroSlot performance tips**:
+    
+    **Recommended amounts**:
+    - **Fast**: 0.0003 SOL (sub-second confirmation)
+    - **Ultra**: 0.001 SOL (microsecond processing)
+    - **Extreme**: 0.005 SOL (maximum performance)
+    
+    **Specialization**: Arbitrage-optimized
+  </TabItem>
+</Tabs>
+
+### Dynamic Tip Adjustment
+
+<AccordionGroup>
+  <Accordion icon="chart-line" title="Auto-Scaling Tips">
+    **Automatically adjust tips based on conditions**:
+    - **Network congestion**: Higher tips during busy periods
+    - **Transaction urgency**: Urgent trades get higher tips
+    - **Market volatility**: Dynamic adjustment for fast markets
+    - **Success rate optimization**: Learn optimal tip amounts
+  </Accordion>
+  
+  <Accordion icon="clock" title="Time-Based Tips">
+    **Adjust tips based on timing**:
+    - **Peak hours**: Higher tips during busy trading times
+    - **Off-peak**: Lower tips when network is quiet
+    - **Event-driven**: Surge pricing during major events
+    - **Seasonal patterns**: Adapt to long-term trends
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Priority Fee Management
+
+### Fee Strategy
+
+<CardGroup cols={2}>
+  <Card
+    title="Conservative"
+    icon="shield"
+  >
+    **Cost-optimized approach**:
+    - Lower priority fees
+    - Accepts longer confirmation times
+    - Suitable for non-urgent trades
+    - Maximizes profit margins
+  </Card>
+  <Card
+    title="Aggressive"
+    icon="zap"
+  >
+    **Speed-optimized approach**:
+    - Higher priority fees
+    - Fastest possible confirmations
+    - Critical for time-sensitive trades
+    - Reduced profit margins
+  </Card>
+</CardGroup>
+
+### Fee Calculation
+
+<Steps>
+  <Step title="Base Fee">
+    **Network base fee**: Current Solana network base fee (typically very low)
+  </Step>
+  <Step title="Priority Fee">
+    **Your priority addition**: Additional fee to prioritize your transaction
+  </Step>
+  <Step title="Service Fee">
+    **Service provider fee**: Cost for using premium transaction services
+  </Step>
+  <Step title="Total Cost">
+    **Final transaction cost**: Sum of all fees for complete transaction
+  </Step>
+</Steps>
+
+---
+
+## RPC Configuration
+
+### Primary RPC Endpoints
+
+<Card icon="server" title="RPC Service Selection">
+**Choose your primary Solana RPC provider**:
+- **Public RPC**: Free but limited rate limits
+- **Private RPC**: Paid but higher performance
+- **Dedicated RPC**: Custom endpoints for maximum performance
+- **Load Balanced**: Multiple endpoints for reliability
+</Card>
+
+### RPC Providers
+
+<AccordionGroup>
+  <Accordion icon="globe" title="Public Endpoints">
+    **Free Solana RPC endpoints**:
+    - **Solana Labs**: https://api.mainnet-beta.solana.com
+    - **GenesysGo**: Public endpoints with good reliability
+    - **Project Serum**: Community-maintained endpoints
+    - **Limitations**: Rate limits and occasional slowdowns
+  </Accordion>
+  
+  <Accordion icon="crown" title="Premium Providers">
+    **Paid high-performance RPC**:
+    - **QuickNode**: Fast and reliable with global CDN
+    - **Alchemy**: Enterprise-grade with advanced features
+    - **Helius**: Solana-specialized with enhanced APIs
+    - **Benefits**: Higher rate limits, better uptime, support
+  </Accordion>
+  
+  <Accordion icon="cog" title="Custom Configuration">
+    **Advanced RPC setup**:
+    - **Custom endpoints**: Your own RPC infrastructure
+    - **Load balancing**: Multiple endpoints for redundancy
+    - **Failover logic**: Automatic switching on failures
+    - **Performance monitoring**: Real-time endpoint health
+  </Accordion>
+</AccordionGroup>
+
+### Connection Settings
+
+<CardGroup cols={2}>
+  <Card
+    title="Timeout Configuration"
+    icon="clock"
+  >
+    **Request timeout settings**:
+    - Connection timeout: 5-30 seconds
+    - Read timeout: 10-60 seconds
+    - Retry attempts: 1-5 tries
+    - Backoff strategy: Exponential delay
+  </Card>
+  <Card
+    title="Rate Limiting"
+    icon="gauge"
+  >
+    **Request rate management**:
+    - Requests per second: Provider-dependent
+    - Burst limits: Short-term rate increases
+    - Queue management: Handle rate limit hits
+    - Priority queuing: Important requests first
+  </Card>
+</CardGroup>
+
+---
+
+## Transaction Optimization
+
+### Batch Processing
+
+<AccordionGroup>
+  <Accordion icon="layer-group" title="Transaction Batching">
+    **Combine multiple operations**:
+    - **Token launches**: Deploy multiple tokens in one transaction
+    - **Portfolio rebalancing**: Multiple buys/sells together
+    - **Wallet management**: Batch operations across wallets
+    - **Cost savings**: Reduced total transaction fees
+  </Accordion>
+  
+  <Accordion icon="arrows-split-up-and-left" title="Smart Grouping">
+    **Intelligent transaction grouping**:
+    - **Related operations**: Group logically connected transactions
+    - **Timing optimization**: Execute at optimal times
+    - **Fee optimization**: Minimize total costs
+    - **Failure isolation**: Prevent cascade failures
+  </Accordion>
+</AccordionGroup>
+
+### MEV Protection
+
+<CardGroup cols={2}>
+  <Card
+    title="Basic Protection"
+    icon="shield"
+  >
+    **Standard MEV mitigation**:
+    - Transaction privacy pools
+    - Basic front-running protection
+    - Randomized timing
+    - Suitable for most users
+  </Card>
+  <Card
+    title="Advanced Protection"
+    icon="shield-check"
+  >
+    **Enterprise MEV defense**:
+    - Private mempools
+    - Flashbots integration
+    - Advanced routing
+    - Professional trading protection
+  </Card>
+</CardGroup>
+
+---
+
+## Performance Monitoring
+
+### Transaction Analytics
+
+<Card icon="chart-bar" title="Transaction Performance">
+**Monitor your transaction efficiency**:
+- **Success rate**: Percentage of successful transactions
+- **Average confirmation time**: Speed metrics
+- **Cost analysis**: Fee breakdown and optimization
+- **Service comparison**: Performance across different services
+</Card>
+
+### Performance Metrics
+
+<AccordionGroup>
+  <Accordion icon="stopwatch" title="Speed Metrics">
+    **Transaction timing analysis**:
+    - **Submission to confirmation**: Total transaction time
+    - **Network propagation**: Time to reach validators
+    - **Confirmation finality**: Time to final confirmation
+    - **Service efficiency**: Provider performance comparison
+  </Accordion>
+  
+  <Accordion icon="coins" title="Cost Analysis">
+    **Fee optimization tracking**:
+    - **Average fees paid**: Cost per transaction type
+    - **Fee efficiency**: Cost vs speed optimization
+    - **Service costs**: Comparison across providers
+    - **ROI impact**: How fees affect profitability
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+<AccordionGroup>
+  <Accordion icon="wifi" title="Connection Problems">
+    **If RPC connections fail**:
+    - Try different RPC endpoints
+    - Check internet connectivity
+    - Verify endpoint status pages
+    - Contact RPC provider support
+  </Accordion>
+  
+  <Accordion icon="clock" title="Slow Transactions">
+    **If transactions are too slow**:
+    - Increase priority fees
+    - Switch to premium RPC
+    - Use transaction services
+    - Avoid peak network times
+  </Accordion>
+  
+  <Accordion icon="x-circle" title="Failed Transactions">
+    **If transactions keep failing**:
+    - Check wallet balance for fees
+    - Verify network status
+    - Reduce transaction complexity
+    - Contact support with transaction hashes
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card
+    title="Cost Optimization"
+    icon="coins"
+  >
+    **Minimize transaction costs**:
+    - Use appropriate priority fees
+    - Batch similar operations
+    - Time transactions strategically
+    - Monitor fee trends
+  </Card>
+  <Card
+    title="Reliability"
+    icon="shield-check"
+  >
+    **Ensure transaction success**:
+    - Use multiple RPC endpoints
+    - Implement proper error handling
+    - Monitor network conditions
+    - Maintain adequate SOL balance
+  </Card>
+</CardGroup>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Configure Advanced Settings"
+    icon="cog"
+    href="/settings/advanced"
+  >
+    Set up automation and advanced trading features
+  </Card>
+  <Card
+    title="Optimize UI Layout"
+    icon="layout"
+    href="/settings/ui-layout"
+  >
+    Customize your interface for maximum efficiency
+  </Card>
+</CardGroup>
+
+<Tip>
+**Pro Tip**: Start with conservative tip amounts and gradually increase based on your transaction success rate and timing requirements. Different market conditions may require different service configurations - stay flexible and monitor performance regularly.
+</Tip>

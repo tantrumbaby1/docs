@@ -1,0 +1,892 @@
+---
+title: "Settings API"
+description: "Manage user preferences, wallet configurations, and platform settings"
+---
+
+# Settings API
+
+The Settings API provides endpoints for managing user preferences, wallet configurations, launch settings, and platform customizations within OneClick.
+
+<Card icon="settings" title="Configuration Management">
+**Complete settings management** through RESTful endpoints:
+- User preferences and defaults
+- Wallet management and configuration
+- Launch settings and automation
+- UI customization and layout preferences
+</Card>
+
+## Base URL
+
+```
+https://api.oneclick.com/api/settings
+```
+
+All endpoints require authentication via Bearer token in the Authorization header.
+
+---
+
+## User Settings
+
+### Get User Settings
+
+<Card icon="user" title="GET /user">
+**Retrieve all user settings and preferences**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "user": {
+      "id": "user_uuid",
+      "email": "user@example.com",
+      "created_at": "2024-01-15T10:30:00Z",
+      "last_login": "2024-01-20T15:45:00Z",
+      "email_verified": true,
+      "subscription_tier": "pro"
+    },
+    "preferences": {
+      "default_sol_amount": 0.1,
+      "priority_fee": 5000,
+      "auto_launch": false,
+      "max_launches_per_day": 10,
+      "slippage_tolerance": 0.05,
+      "default_platform": "PUMP_FUN",
+      "notifications": {
+        "email_enabled": true,
+        "browser_enabled": true,
+        "discord_webhook": null,
+        "quiet_hours": {
+          "enabled": true,
+          "start": "23:00",
+          "end": "07:00",
+          "timezone": "UTC"
+        }
+      },
+      "risk_settings": {
+        "max_position_size": 1.0,
+        "daily_loss_limit": 2.0,
+        "auto_stop_loss": true,
+        "position_size_model": "FIXED"
+      }
+    },
+    "presets": {
+      "liquidity_presets": [0.1, 0.5, 1.0, 5.0],
+      "sell_presets": [25, 50, 75, 100]
+    }
+  }
+}
+```
+
+### Update User Settings
+
+<Card icon="edit" title="PUT /user">
+**Update user preferences and settings**
+</Card>
+
+**Request Body:**
+```json
+{
+  "default_sol_amount": 0.2,
+  "priority_fee": 7500,
+  "auto_launch": true,
+  "max_launches_per_day": 15,
+  "slippage_tolerance": 0.03,
+  "default_platform": "RAYDIUM",
+  "notifications": {
+    "email_enabled": false,
+    "browser_enabled": true,
+    "quiet_hours": {
+      "enabled": true,
+      "start": "22:00",
+      "end": "08:00",
+      "timezone": "EST"
+    }
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "updated_fields": [
+      "default_sol_amount",
+      "priority_fee",
+      "auto_launch",
+      "notifications.email_enabled"
+    ],
+    "settings": {
+      "default_sol_amount": 0.2,
+      "priority_fee": 7500,
+      "auto_launch": true
+    }
+  }
+}
+```
+
+---
+
+## Preset Management
+
+### Get Presets
+
+<Card icon="bookmark" title="GET /presets">
+**Retrieve user's configured presets**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "liquidity_presets": [0.1, 0.5, 1.0, 5.0],
+    "sell_presets": [25, 50, 75, 100],
+    "custom_presets": [
+      {
+        "id": "preset_uuid",
+        "name": "Conservative",
+        "type": "LAUNCH_STRATEGY",
+        "settings": {
+          "sol_amount": 0.05,
+          "slippage_tolerance": 0.02,
+          "priority_fee": 3000,
+          "auto_sell_rules": [
+            {
+              "type": "TAKE_PROFIT",
+              "trigger": 2.0,
+              "action": 50
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+### Update Liquidity Presets
+
+<Card icon="droplets" title="PUT /presets/liquidity">
+**Update SOL amount presets for token launches**
+</Card>
+
+**Request Body:**
+```json
+{
+  "presets": [0.01, 0.1, 0.5, 2.0, 10.0]
+}
+```
+
+### Update Sell Presets
+
+<Card icon="chart-line" title="PUT /presets/sell">
+**Update percentage presets for token selling**
+</Card>
+
+**Request Body:**
+```json
+{
+  "presets": [10, 25, 50, 75, 100]
+}
+```
+
+### Create Custom Preset
+
+<Card icon="plus" title="POST /presets/custom">
+**Create a named configuration preset**
+</Card>
+
+**Request Body:**
+```json
+{
+  "name": "Aggressive Trading",
+  "type": "LAUNCH_STRATEGY",
+  "description": "High-risk, high-reward configuration",
+  "settings": {
+    "sol_amount": 1.0,
+    "slippage_tolerance": 0.1,
+    "priority_fee": 10000,
+    "auto_launch": true,
+    "auto_sell_rules": [
+      {
+        "type": "TAKE_PROFIT",
+        "trigger": 3.0,
+        "action": 33
+      },
+      {
+        "type": "STOP_LOSS",
+        "trigger": 0.5,
+        "action": 100
+      }
+    ]
+  }
+}
+```
+
+---
+
+## Wallet Settings
+
+### Get Wallet Configuration
+
+<Card icon="wallet" title="GET /wallets">
+**Retrieve wallet settings and management preferences**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "wallets": [
+      {
+        "id": "wallet_uuid",
+        "name": "Main Trading Wallet",
+        "address": "wallet_public_key",
+        "is_primary": true,
+        "balance": {
+          "sol": 5.234,
+          "usd": 645.67
+        },
+        "settings": {
+          "auto_refresh": true,
+          "low_balance_alert": 0.5,
+          "daily_spend_limit": 2.0
+        },
+        "created_at": "2024-01-15T10:30:00Z",
+        "last_used": "2024-01-20T15:45:00Z"
+      }
+    ],
+    "global_settings": {
+      "auto_switch_on_insufficient": true,
+      "balance_check_interval": 30,
+      "priority_wallet_selection": "HIGHEST_BALANCE"
+    }
+  }
+}
+```
+
+### Update Wallet Settings
+
+<Card icon="edit" title="PUT /wallets/{walletId}">
+**Update settings for a specific wallet**
+</Card>
+
+**Request Body:**
+```json
+{
+  "name": "Updated Wallet Name",
+  "settings": {
+    "auto_refresh": false,
+    "low_balance_alert": 1.0,
+    "daily_spend_limit": 5.0
+  }
+}
+```
+
+### Set Primary Wallet
+
+<Card icon="star" title="POST /wallets/{walletId}/set-primary">
+**Designate a wallet as the primary trading wallet**
+</Card>
+
+---
+
+## Platform Configuration
+
+### Get Platform Settings
+
+<Card icon="cog" title="GET /platform">
+**Retrieve platform-specific configurations**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "platforms": {
+      "PUMP_FUN": {
+        "enabled": true,
+        "default_settings": {
+          "auto_liquidity": true,
+          "community_features": true,
+          "fee_optimization": true
+        },
+        "custom_settings": {
+          "launch_delay": 0,
+          "metadata_template": "standard"
+        }
+      },
+      "RAYDIUM": {
+        "enabled": true,
+        "default_settings": {
+          "pool_creation": true,
+          "fee_tier": 0.25,
+          "initial_liquidity": "auto"
+        }
+      }
+    },
+    "default_platform": "PUMP_FUN",
+    "platform_rotation": {
+      "enabled": false,
+      "strategy": "ROUND_ROBIN",
+      "weights": {
+        "PUMP_FUN": 70,
+        "RAYDIUM": 30
+      }
+    }
+  }
+}
+```
+
+### Update Platform Settings
+
+<Card icon="edit" title="PUT /platform">
+**Update platform configurations and preferences**
+</Card>
+
+---
+
+## UI Layout Settings
+
+### Get UI Layout
+
+<Card icon="layout" title="GET /ui-layout">
+**Retrieve UI customization preferences**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "layout": {
+      "preset": "custom",
+      "panel_widths": {
+        "left_panel": 45,
+        "right_panel": 55
+      },
+      "modules": {
+        "show_twitter_tracker": true,
+        "show_launch_queue": true
+      },
+      "header_collapse": {
+        "twitter_tracker": false,
+        "launch_queue": false
+      },
+      "module_spacing": "comfortable",
+      "notification_position": "top-center"
+    },
+    "theme": {
+      "mode": "dark",
+      "accent_color": "#9333EA",
+      "high_contrast": false,
+      "reduced_motion": false
+    },
+    "accessibility": {
+      "large_text": false,
+      "screen_reader_optimized": false,
+      "keyboard_navigation": true
+    }
+  }
+}
+```
+
+### Update UI Layout
+
+<Card icon="layout" title="PUT /ui-layout">
+**Update UI layout and visual preferences**
+</Card>
+
+**Request Body:**
+```json
+{
+  "layout": {
+    "preset": "twitter_focus",
+    "panel_widths": {
+      "left_panel": 60,
+      "right_panel": 40
+    },
+    "header_collapse": {
+      "launch_queue": true
+    },
+    "notification_position": "bottom-center"
+  },
+  "theme": {
+    "accent_color": "#7C3AED"
+  }
+}
+```
+
+---
+
+## Automation Settings
+
+### Get Automation Config
+
+<Card icon="robot" title="GET /automation">
+**Retrieve automation and bot settings**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "farmer": {
+      "enabled": false,
+      "delay_ms": 300000,
+      "max_concurrent": 3,
+      "daily_limit": 50,
+      "strategy": "TIME_BASED"
+    },
+    "batch_deploy": {
+      "enabled": false,
+      "count": 5,
+      "stagger_delay": 60000,
+      "diversification_strategy": "THEME_BASED"
+    },
+    "auto_sell": {
+      "global_rules": [
+        {
+          "type": "STOP_LOSS",
+          "trigger": 0.5,
+          "action": 100,
+          "enabled": true
+        }
+      ],
+      "profit_taking": {
+        "ladder_enabled": true,
+        "targets": [
+          { "multiple": 2.0, "sell_percentage": 25 },
+          { "multiple": 5.0, "sell_percentage": 50 }
+        ]
+      }
+    },
+    "risk_management": {
+      "daily_loss_limit": 2.0,
+      "position_size_limit": 1.0,
+      "consecutive_loss_limit": 5,
+      "emergency_stop_enabled": true
+    }
+  }
+}
+```
+
+### Update Automation Settings
+
+<Card icon="robot" title="PUT /automation">
+**Configure automation and bot behavior**
+</Card>
+
+---
+
+## Notification Settings
+
+### Get Notification Config
+
+<Card icon="bell" title="GET /notifications">
+**Retrieve notification preferences and channels**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "channels": {
+      "email": {
+        "enabled": true,
+        "address": "user@example.com",
+        "frequency": "IMMEDIATE",
+        "types": ["launch_complete", "position_alerts", "security_alerts"]
+      },
+      "browser": {
+        "enabled": true,
+        "permission_granted": true,
+        "types": ["all"]
+      },
+      "discord": {
+        "enabled": false,
+        "webhook_url": null,
+        "types": []
+      },
+      "telegram": {
+        "enabled": false,
+        "chat_id": null,
+        "bot_token": null
+      }
+    },
+    "preferences": {
+      "quiet_hours": {
+        "enabled": true,
+        "start": "23:00",
+        "end": "07:00",
+        "timezone": "UTC",
+        "emergency_override": true
+      },
+      "frequency_limits": {
+        "max_per_hour": 10,
+        "max_per_day": 100,
+        "cooldown_similar": 300
+      },
+      "priority_filtering": {
+        "high_priority_only": false,
+        "min_confidence": 0.7
+      }
+    },
+    "notification_types": {
+      "launch_complete": {
+        "enabled": true,
+        "channels": ["browser", "email"]
+      },
+      "position_alerts": {
+        "enabled": true,
+        "channels": ["browser"]
+      },
+      "filter_matches": {
+        "enabled": true,
+        "channels": ["browser"]
+      },
+      "security_alerts": {
+        "enabled": true,
+        "channels": ["email", "browser"]
+      }
+    }
+  }
+}
+```
+
+### Update Notification Settings
+
+<Card icon="bell" title="PUT /notifications">
+**Configure notification channels and preferences**
+</Card>
+
+---
+
+## Security Settings
+
+### Get Security Config
+
+<Card icon="shield" title="GET /security">
+**Retrieve security and access control settings**
+</Card>
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "authentication": {
+      "two_factor_enabled": false,
+      "backup_codes_generated": false,
+      "last_password_change": "2024-01-15T10:30:00Z",
+      "session_timeout": 86400
+    },
+    "api_access": {
+      "api_keys": [
+        {
+          "id": "key_uuid",
+          "name": "Trading Bot",
+          "permissions": ["tokens:read", "tokens:launch"],
+          "last_used": "2024-01-20T15:45:00Z",
+          "expires_at": "2024-12-31T23:59:59Z"
+        }
+      ],
+      "rate_limits": {
+        "requests_per_hour": 1000,
+        "burst_limit": 50
+      }
+    },
+    "wallet_security": {
+      "require_confirmation": true,
+      "large_transaction_threshold": 1.0,
+      "auto_logout_on_inactivity": true,
+      "hardware_wallet_preferred": false
+    },
+    "privacy": {
+      "share_anonymous_analytics": true,
+      "data_retention_days": 90,
+      "third_party_integrations": ["discord"]
+    }
+  }
+}
+```
+
+### Update Security Settings
+
+<Card icon="shield" title="PUT /security">
+**Configure security and privacy preferences**
+</Card>
+
+---
+
+## Export & Backup
+
+### Export Settings
+
+<Card icon="download" title="GET /export">
+**Export all user settings as JSON**
+</Card>
+
+**Query Parameters:**
+- `format` - Export format: `json`, `yaml`
+- `include` - Sections to include: `all`, `user`, `presets`, `wallets`, `ui`
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "export_id": "export_uuid",
+    "created_at": "2024-01-20T15:45:00Z",
+    "download_url": "https://api.oneclick.com/downloads/export_uuid.json",
+    "expires_at": "2024-01-21T15:45:00Z",
+    "size_bytes": 15420
+  }
+}
+```
+
+### Import Settings
+
+<Card icon="upload" title="POST /import">
+**Import settings from exported JSON**
+</Card>
+
+**Request Body:**
+```json
+{
+  "settings": {
+    "user": { /* user settings */ },
+    "presets": { /* preset configurations */ },
+    "ui_layout": { /* UI preferences */ }
+  },
+  "overwrite": false,
+  "backup_existing": true
+}
+```
+
+---
+
+## Settings Validation
+
+### Validate Settings
+
+<Card icon="check" title="POST /validate">
+**Validate settings before applying**
+</Card>
+
+**Request Body:**
+```json
+{
+  "settings": {
+    "default_sol_amount": 150,
+    "slippage_tolerance": 0.5,
+    "max_launches_per_day": -5
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "success": false,
+  "data": {
+    "valid": false,
+    "errors": [
+      {
+        "field": "default_sol_amount",
+        "message": "Must be between 0.001 and 100",
+        "value": 150
+      },
+      {
+        "field": "max_launches_per_day",
+        "message": "Must be a positive integer",
+        "value": -5
+      }
+    ],
+    "warnings": [
+      {
+        "field": "slippage_tolerance",
+        "message": "High slippage tolerance may result in poor execution",
+        "value": 0.5
+      }
+    ]
+  }
+}
+```
+
+---
+
+## Error Handling
+
+### Settings-Specific Errors
+
+<Tabs>
+  <TabItem value="400" label="400 Invalid Setting">
+    **Invalid setting value**:
+    
+    ```json
+    {
+      "error": "invalid_setting",
+      "message": "SOL amount must be between 0.001 and 100",
+      "code": 400,
+      "field": "default_sol_amount",
+      "value": 150,
+      "min": 0.001,
+      "max": 100
+    }
+    ```
+  </TabItem>
+  
+  <TabItem value="409" label="409 Setting Conflict">
+    **Conflicting settings**:
+    
+    ```json
+    {
+      "error": "setting_conflict",
+      "message": "Cannot enable auto-launch without setting max launches per day",
+      "code": 409,
+      "conflicts": [
+        {
+          "field": "auto_launch",
+          "requires": "max_launches_per_day"
+        }
+      ]
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+---
+
+## SDK Examples
+
+### JavaScript/TypeScript
+
+```typescript
+import { OneClickAPI } from '@oneclick/sdk';
+
+const api = new OneClickAPI({ apiKey: 'your-api-key' });
+
+// Get user settings
+const settings = await api.settings.getUser();
+
+// Update preferences
+await api.settings.updateUser({
+  defaultSolAmount: 0.2,
+  priorityFee: 7500,
+  autoLaunch: true
+});
+
+// Update presets
+await api.settings.updateLiquidityPresets([0.01, 0.1, 0.5, 2.0]);
+
+// Configure notifications
+await api.settings.updateNotifications({
+  channels: {
+    email: { enabled: false },
+    browser: { enabled: true }
+  },
+  quietHours: {
+    enabled: true,
+    start: '22:00',
+    end: '08:00'
+  }
+});
+
+// Export settings
+const exportData = await api.settings.export();
+```
+
+### Python
+
+```python
+from oneclick_sdk import OneClickAPI
+
+api = OneClickAPI(api_key='your-api-key')
+
+# Get settings
+settings = api.settings.get_user()
+
+# Update user preferences
+api.settings.update_user(
+    default_sol_amount=0.2,
+    priority_fee=7500,
+    auto_launch=True
+)
+
+# Create custom preset
+preset = api.settings.create_preset(
+    name='Conservative Strategy',
+    type='LAUNCH_STRATEGY',
+    settings={
+        'sol_amount': 0.05,
+        'slippage_tolerance': 0.02,
+        'auto_sell_rules': [
+            {
+                'type': 'TAKE_PROFIT',
+                'trigger': 2.0,
+                'action': 50
+            }
+        ]
+    }
+)
+```
+
+---
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card
+    title="Safety First"
+    icon="shield-check"
+  >
+    **Secure configuration**:
+    - Start with conservative settings
+    - Enable security features
+    - Regular backup of settings
+    - Validate before applying changes
+  </Card>
+  <Card
+    title="Optimization"
+    icon="chart-line"
+  >
+    **Performance tuning**:
+    - Monitor setting effectiveness
+    - Adjust based on results
+    - Use presets for different strategies
+    - Regular review and updates
+  </Card>
+</CardGroup>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Token API"
+    icon="coins"
+    href="/api-reference/tokens"
+  >
+    Apply your settings to token launching and management
+  </Card>
+  <Card
+    title="Twitter API"  
+    icon="twitter"
+    href="/api-reference/twitter"
+  >
+    Configure Twitter tracking with your preferences
+  </Card>
+</CardGroup>
+
+<Tip>
+**Configuration Tip**: Export your settings regularly as backups, especially before making major changes. This allows you to quickly restore working configurations if new settings don't perform as expected.
+</Tip>
